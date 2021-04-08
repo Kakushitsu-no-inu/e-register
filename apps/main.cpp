@@ -8,5 +8,6 @@ auto main() -> int
 	Student a{"Andrii","Liashenko"};
 	KN_314.addStudent(b);
 	KN_314.addStudent(a);
+	KN_314.removeStudent("Ivan","Tkachuk");
 
 }
