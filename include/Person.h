@@ -8,7 +8,7 @@ public:
 
 	Person(std::string_view name);
 
-	Person(std::string_view name, std::string surname);
+	Person(std::string_view name, std::string_view surname);
 
 protected:
 	std::string name {};
