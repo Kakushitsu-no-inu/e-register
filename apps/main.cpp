@@ -3,4 +3,5 @@
 auto main() -> int
 {
 	std::cout << "Hello world!" << std::endl;
+	std::cout << "test"<< std::endl;
 }
