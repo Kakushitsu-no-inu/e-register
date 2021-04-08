@@ -10,5 +10,5 @@ set(CMAKE_CXX_STANDARD 17)
 add_subdirectory(src)
 
 add_executable(e-register apps/main.cpp)
-target_include_directories(e-register PRIVATE ${INC})
+target_include_directories(e-register PRIVATE ${CMAKE_SOURCE_DIR}/include)
 target_link_libraries(e-register PRIVATE e-lib)

@@ -12,6 +12,12 @@ public:
 
 	Student(std::string_view name, std::string_view surname, int group);
 
+	Student(const Student&& stud);
+
+	void setGroup(int group);
+
+	std::string_view getSurname() const;
+
 private:
 	int group {};
 };

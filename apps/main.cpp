@@ -1,6 +1,7 @@
 #include <iostream>
+#include "Group.h"
 
 auto main() -> int
 {
-	std::cout << "test"<< std::endl;
+	Group KN_314 { 314 };
 }

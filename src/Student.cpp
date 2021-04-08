@@ -8,3 +8,18 @@ Student::Student(std::string_view name, std::string_view surname) : Person { nam
 
 Student::Student(std::string_view name, std::string_view surname, int group) : Person { name, surname }, group { group }
 {}
+
+Student::Student(const Student&& stud) :
+	Person { std::move(stud.name), std::move(stud.surname) },
+	group { std::move(group) }
+{}
+
+void Student::setGroup(int group)
+{
+	this->group = group;
+}
+
+std::string_view Student::getSurname() const
+{
+	return surname;
+}
