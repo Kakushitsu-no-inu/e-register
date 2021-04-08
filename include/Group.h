@@ -14,7 +14,7 @@ class Group
 public:
 	Group(int group);
 
-	void addStudent(Student&& stud);
+	void addStudent(Student& stud);
 
 	bool removeStudent(std::string_view name, std::string_view surname);
 

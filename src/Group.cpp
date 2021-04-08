@@ -3,10 +3,10 @@
 Group::Group(int group) : group { group }
 {}
 
-void Group::addStudent(Student&& stud)
+void Group::addStudent(Student& stud)
 {
 	stud.setGroup(group);
-	students.insert(std::move(stud));
+	students.insert(stud);
 }
 
 bool Group::removeStudent(std::string_view name, std::string_view surname)

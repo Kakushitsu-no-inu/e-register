@@ -4,9 +4,9 @@
 auto main() -> int
 {
 	Group KN_314 { 314 };
-	Student a{"Andrii","Liashenko"};
 	Student b{"Ivan","Tkachuk"};
-	KN_314.addStudent(std::move(a));
-	KN_314.addStudent(std::move(b));
-	
+	Student a{"Andrii","Liashenko"};
+	KN_314.addStudent(b);
+	KN_314.addStudent(a);
+
 }
