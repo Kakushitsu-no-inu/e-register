@@ -16,5 +16,9 @@
   },
   "[cmake]": {
     "editor.tabSize": 8
+  },
+  "files.associations": {
+    "string_view": "cpp",
+    "typeinfo": "cpp"
   }
 }
