@@ -14,7 +14,12 @@ void Student::setGroup(int group)
 	this->group = group;
 }
 
-std::string_view Student::getSurname() const
+const std::string& Student::getSurname() const
 {
 	return surname;
+}
+
+const std::string& Student::getName() const
+{
+	return name;
 }

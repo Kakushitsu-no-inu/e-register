@@ -25,9 +25,9 @@ public:
 
 	bool removeStudent(std::string_view name, std::string_view surname);
 
-	// void loadFromExcel(std::string_view filename);
+	void loadFromExcel(std::string_view filename);
 
-	// void saveToExcel(std::string_view filename);
+	void saveToExcel(std::string_view filename);
 
 private:
 	// Множина студетнів

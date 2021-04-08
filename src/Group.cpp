@@ -1,4 +1,5 @@
 #include "Group.h"
+#include <OpenXLSX.hpp>
 
 Group::Group(int number) : number { number }
 {}
@@ -20,4 +21,26 @@ bool Group::removeStudent(std::string_view name, std::string_view surname)
 	}
 
 	return false;
+}
+
+void Group::saveToExcel(std::string_view filename)
+{
+	using namespace OpenXLSX;
+	XLDocument doc;
+
+	doc.create("./Groups.xlsx");
+
+	auto wks = doc.workbook().worksheet(std::to_string(number));
+
+	wks.cell(XLCellReference("A1")).value() = "Surname";
+	wks.cell(XLCellReference("B1")).value() = "Name";
+
+	int number { 2 };
+	for (auto& stud : students)
+	{
+		wks.cell(XLCellReference("A" + std::to_string(number))).value() = stud.getSurname();
+		wks.cell(XLCellReference("B" + std::to_string(number))).value() = stud.getName();
+	}
+
+	doc.save();
 }
