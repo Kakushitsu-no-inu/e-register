@@ -12,7 +12,6 @@ public:
 
 	Student(std::string_view name, std::string_view surname, int group);
 
-	Student(const Student&& stud);
 
 	void setGroup(int group);
 

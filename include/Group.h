@@ -14,13 +14,22 @@ class Group
 public:
 	Group(int group);
 
-	void addStudent(Student&& stud);
+	void addStudent(Student& stud);
 
+	/**
+	 * @brief Видаляє студента з групи 
+	 * 
+	 * @param name Ім'я студента
+	 * @param surname Прізвище студента
+	 * @return `true` якщо успішно видалено, `false` — якщо не знайдено студента
+	 */
 	bool removeStudent(std::string_view name, std::string_view surname);
 
 private:
+	// Множина студетнів
 	std::set<Student, decltype(compareStuds)> students { compareStuds };
 
-	int group {};
+	// Номер групи
+	int number {};
 };
 #pragma GCC diagnostic pop

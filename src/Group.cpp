@@ -1,17 +1,17 @@
 #include "Group.h"
 
-Group::Group(int group) : group { group }
+Group::Group(int number) : number { number }
 {}
 
-void Group::addStudent(Student&& stud)
+void Group::addStudent(Student& stud)
 {
-	stud.setGroup(group);
-	students.insert(std::move(stud));
+	stud.setGroup(number);
+	students.insert(stud);
 }
 
 bool Group::removeStudent(std::string_view name, std::string_view surname)
 {
-	Student toFind { name, surname, group };
+	Student toFind { name, surname, number };
 
 	if (auto search = students.find(toFind); search != students.end())
 	{
