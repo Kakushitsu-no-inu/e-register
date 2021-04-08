@@ -2,5 +2,5 @@
 
 auto main() -> int
 {
-	std::cout << "GitHub Collaborations!" << std::endl;
+	std::cout << "test"<< std::endl;
 }
