@@ -1,13 +1,13 @@
-#include <iostream>
 #include "Group.h"
+#include <iostream>
 
 auto main() -> int
 {
 	Group KN_314 { 314 };
-	Student b{"Ivan","Tkachuk"};
-	Student a{"Andrii","Liashenko"};
-	KN_314.addStudent(b);
-	KN_314.addStudent(a);
+	KN_314.addStudent(Student { "Ivan", "Tkachuk" });
+	KN_314.addStudent(Student { "Andrii", "Liashenko" });
+	KN_314.addStudent(Student { "Florian", "Akostakioae" });
+	KN_314.addStudent(Student { "Smb", "Akostakioae" });
 
-	// KN_314.saveToExcel("college.excel");
+	KN_314.saveToExcel("college.excel");
 }

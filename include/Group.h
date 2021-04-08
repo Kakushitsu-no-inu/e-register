@@ -21,7 +21,7 @@ public:
 	 * @param surname Прізвище студента
 	 * @return `true` якщо успішно видалено, `false` — якщо не знайдено студента
 	 */
-	void addStudent(Student& stud);
+	void addStudent(const Student& stud);
 
 	bool removeStudent(std::string_view name, std::string_view surname);
 
