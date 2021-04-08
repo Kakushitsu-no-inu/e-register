@@ -7,6 +7,8 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 set(CMAKE_CXX_STANDARD 17)
 
+include(scripts/excel.cmake)
+
 add_subdirectory(src)
 
 add_executable(e-register apps/main.cpp)

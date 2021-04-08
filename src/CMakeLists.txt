@@ -10,3 +10,5 @@ set(SOURCES
 
 add_library(e-lib ${SOURCES})
 target_include_directories(e-lib PRIVATE ${INC})
+target_link_libraries(e-lib PUBLIC OpenXLSX-static)
+target_compile_definitions(e-lib PRIVATE OPENXLSX_STATIC_DEFINE)
