@@ -1,8 +1,6 @@
 #pragma once
 #include <string>
 
-namespace erg
-{
 class Person
 {
 public:
@@ -16,4 +14,3 @@ protected:
 	std::string name {};
 	std::string surname {};
 };
-}
