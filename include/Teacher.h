@@ -15,6 +15,8 @@ public:
 	Teacher(std::string_view name, std::string_view surname);
 
 	Teacher(std::string_view name, std::string_view surname, std::string_view subject);
+	
+	Teacher(std::string_view name, std::string_view surname, std::string_view subject, std::string password);
 
 	void setPassword(std::string_view password);
 
