@@ -18,6 +18,8 @@ public:
 
 	void setPassword(std::string_view password);
 
+	const std::string& getSubject() const;
+
 	const std::string& getPassword() const;
 
 private:

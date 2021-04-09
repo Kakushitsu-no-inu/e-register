@@ -8,6 +8,11 @@ Teacher::Teacher(std::string_view name, std::string_view surname, std::string_vi
 	subject(subject)
 {}
 
+const std::string& Teacher::getSubject() const
+{
+	return subject;
+}
+
 const std::string& Teacher::getPassword() const
 {
 	return password;
