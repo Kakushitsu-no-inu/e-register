@@ -40,7 +40,12 @@ public:
 	 */
 	void saveToExcel(const std::string& filename);
 
-	void updateSheet(const std::string &subject);
+	/**
+	 * @brief Функція оновлює дані про предмет
+	 * 
+	 * @param subject предмет
+	 */
+	void updateSubject(const std::string &subject);
 
 private:
 	// Компаратор для студентів по їхньому прізвищу та імені в алфавітному порядку

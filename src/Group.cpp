@@ -92,7 +92,7 @@ void Group::saveToExcel(const std::string& filename)
 	doc.close();
 }
 
-void Group::updateSheet(const std::string& subject)
+void Group::updateSubject(const std::string& subject)
 {
 	using namespace OpenXLSX;
 	XLDocument doc;

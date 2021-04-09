@@ -17,7 +17,7 @@ auto main() -> int
 	KN_314.addStudent(stud2);
 
 	KN_314.saveToExcel(std::to_string(314) + ".xlsx");
-	KN_314.updateSheet(teacher.getSubject());
+	KN_314.updateSubject(teacher.getSubject());
 
 	return 0;
 }
