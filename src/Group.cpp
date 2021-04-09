@@ -99,15 +99,18 @@ void Group::updateSheet(const std::string& subject)
 	doc.open(std::to_string(number) + ".xlsx");
 
 	auto wbk = doc.workbook();
-	/// Перевіряємо, чи існує Аркуш з іменем групи, якщо не існує додаємо
+	/// Перевіряємо, чи існує Аркуш з предметом, якщо не існує клонуємо
 	if (!wbk.worksheetExists(subject))
 	{
 		wbk.cloneSheet(std::to_string(number), subject);
 	}
+
 	auto wks = wbk.worksheet(subject);
-	auto current_date = wks.columnCount() + 1;
-	int index { 2 };
+
+	auto current_date = wks.columnCount() + 2;
 	wks.cell(XLCellReference(1, current_date)).value() = students.begin()->getMark().getDate();
+
+	int index { 2 };
 	for (auto& stud : students)
 	{
 		wks.cell(XLCellReference(index, current_date)).value() = stud.getMark().value.value_or(-1);
