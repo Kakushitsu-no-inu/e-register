@@ -1,20 +1,17 @@
-#include "Group.h"
+#include "Stuff.h"
 #include <iostream>
 
 auto main() -> int
 {
-	Group KN_314 { 314 };
-	KN_314.addStudent(Student { "Ivan", "Tkachuk" });
-	KN_314.addStudent(Student { "Andrii", "Liashenko" });
-	KN_314.addStudent(Student { "Florian", "Akostakioae" });
-	KN_314.addStudent(Student { "Adi", "Akostakioae" });
-	KN_314.addStudent(Student { "Vika", "Toporovska" });
+	Stuff clg {};
 
-	KN_314.saveToExcel("college.xlsx");
+	clg.addTeacher(Teacher { "Lazoryk", "Vasyl", "OOP" });
+	clg.addTeacher(Teacher { "Koropetskyi", "Vasyl", "WEB" });
 
-	Group K314 {};
-	// Файл повинен бути відкритим
-	K314.loadFromExcel("college.xlsx", 314);
+	clg.saveToFile();
 
-    return 0;
+	Stuff test {};
+	test.loadFromFile();
+
+	return 0;
 }
