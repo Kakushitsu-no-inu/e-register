@@ -18,3 +18,8 @@ int Student::getGroup() const
 {
 	return group;
 }
+
+void Student::addMark(const Mark& mark)
+{
+	marks.emplace_back(mark);
+}

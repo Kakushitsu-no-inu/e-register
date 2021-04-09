@@ -1,17 +1,23 @@
+#include "Group.h"
 #include "Stuff.h"
 #include <iostream>
 
 auto main() -> int
 {
-	Stuff clg {};
+	Teacher teacher { "Lazoryk", "Vasyl", "OOP" };
 
-	clg.addTeacher(Teacher { "Lazoryk", "Vasyl", "OOP" , "qwerty123"});
-	clg.addTeacher(Teacher { "Koropetskyi", "Vasyl", "WEB", "qwerty12" });
+	Group KN_314 { 314 };
+	Student stud1 { "Andrii", "Liashenko" };
+	Student stud2 { "Ivan", "Tkachuk" };
 
-	clg.saveToFile();
+	teacher.setMark(stud1, { 10 });
+	teacher.setMark(stud2, {});
 
-	Stuff test {};
-	test.loadFromFile();
+	KN_314.addStudent(stud1);
+	KN_314.addStudent(stud2);
+
+	KN_314.saveToExcel(std::to_string(314) + ".xlsx");
+	KN_314.updateSheet(teacher.getSubject());
 
 	return 0;
 }
