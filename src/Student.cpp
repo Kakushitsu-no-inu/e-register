@@ -14,12 +14,7 @@ void Student::setGroup(int group)
 	this->group = group;
 }
 
-const std::string& Student::getSurname() const
+int Student::getGroup() const
 {
-	return surname;
-}
-
-const std::string& Student::getName() const
-{
-	return name;
+	return group;
 }

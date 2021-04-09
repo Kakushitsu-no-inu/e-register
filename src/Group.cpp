@@ -26,13 +26,13 @@ bool Group::removeStudent(std::string_view name, std::string_view surname)
 	return false;
 }
 
-void Group::loadFromExcel(const std::string& filename, const std::string &number)
+void Group::loadFromExcel(const std::string& filename, int number)
 {
 	using namespace OpenXLSX;
 	XLDocument doc;
 
 	doc.open(filename);
-	auto wks = doc.workbook().worksheet(number);
+	auto wks = doc.workbook().worksheet(std::to_string(number));
 
 	auto max = wks.rowCount();
 	for (int index { 1 }; index < max; index++)
@@ -41,6 +41,8 @@ void Group::loadFromExcel(const std::string& filename, const std::string &number
 		auto name = wks.cell(XLCellReference("B" + std::to_string(index))).value();
 		this->addStudent(Student { name.get<std::string_view>(), surname.get<std::string_view>(), number });
 	}
+
+	doc.close();
 }
 
 void Group::saveToExcel(const std::string& filename)

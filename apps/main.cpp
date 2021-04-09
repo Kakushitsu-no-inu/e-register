@@ -13,7 +13,7 @@ auto main() -> int
 	KN_314.saveToExcel("./college.xlsx");
 
 	Group K314 {};
-	K314.loadFromExcel("./college.xlsx", "314");
+	K314.loadFromExcel("./college.xlsx", 314);
 
 	std::cout << ' ';
 }

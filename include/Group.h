@@ -26,7 +26,7 @@ public:
 	 */
 	bool removeStudent(std::string_view name, std::string_view surname);
 
-	void loadFromExcel(const std::string& filename, const std::string& number);
+	void loadFromExcel(const std::string& filename, int number);
 
 	void saveToExcel(const std::string& filename);
 

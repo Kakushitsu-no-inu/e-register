@@ -14,9 +14,7 @@ public:
 
 	void setGroup(int group);
 
-	const std::string& getSurname() const;
-
-	const std::string& getName() const;
+	int getGroup() const;
 
 private:
 	int group {};
