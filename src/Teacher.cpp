@@ -9,6 +9,12 @@ Teacher::Teacher(std::string_view name, std::string_view surname, std::string_vi
 	subject(subject)
 {}
 
+Teacher::Teacher(std::string_view name, std::string_view surname, std::string_view subject, std::string password) :
+	Person(name, surname),
+	subject(subject),
+	password(password)
+{}
+
 const std::string& Teacher::getSubject() const
 {
 	return subject;

@@ -9,7 +9,8 @@ void Stuff::saveToFile()
 	if (file.good())
 	{
 		const auto write = [&file](const Teacher& teacher) {
-			file << teacher.getSurname() << ' ' << teacher.getName() << teacher.getSubject() << '\n';
+			file << teacher.getSurname() << ' ' << teacher.getName() << ' ' << teacher.getSubject() << ' '
+				 << teacher.getPassword() << '\n';
 		};
 
 		std::for_each(teachers.begin(), teachers.end(), write);
@@ -23,10 +24,10 @@ void Stuff::loadFromFile()
 	std::ifstream file { Config::STUFF_FILE, std::ios::in };
 	if (file.good())
 	{
-		std::string surname {}, name {}, subject {};
-		while (file >> surname >> name >> subject)
+		std::string surname {}, name {}, subject {}, password {};
+		while (file >> surname >> name >> subject >> password)
 		{
-			teachers.emplace_back(Teacher { surname, name, subject });
+			teachers.emplace_back(Teacher { surname, name, subject, password });
 		}
 	}
 
