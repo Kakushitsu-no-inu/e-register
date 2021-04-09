@@ -2,14 +2,6 @@
 #include "Student.h"
 #include <set>
 
-//
-constexpr auto compareStuds = [](const Student& stud1, const Student& stud2) {
-	return stud1.getSurname() < stud2.getSurname();
-};
-
-// Виключаємо діагностику GCC на анонімні функції як шаблоний параметр
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wsubobject-linkage"
 class Group
 {
 public:
@@ -45,11 +37,19 @@ public:
 	void saveToExcel(const std::string& filename);
 
 private:
+	// Компаратор для студентів по їхньому прізвищу
+	struct compare
+	{
+		bool operator()(const Student& stud1, const Student& stud2) const
+		{
+			return stud1.getSurname() < stud2.getSurname();
+		}
+	};
+
 	/// Множина студетнів
-	std::set<Student, decltype(compareStuds)> students { compareStuds };
+	std::set<Student, compare> students {};
 	/// Номер групи
 	int number {};
 	/// К-сть студентів
 	int count {};
 };
-#pragma GCC diagnostic pop
