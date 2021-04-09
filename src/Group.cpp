@@ -1,5 +1,6 @@
 #include "Group.h"
 #include <OpenXLSX.hpp>
+#include <filesystem>
 
 Group::Group(int number) : number { number }
 {}
@@ -39,7 +40,7 @@ void Group::loadFromExcel(const std::string& filename, int number)
 	{
 		auto surname = wks.cell(XLCellReference("A" + std::to_string(index))).value();
 		auto name = wks.cell(XLCellReference("B" + std::to_string(index))).value();
-		this->addStudent(Student { name.get<std::string_view>(), surname.get<std::string_view>(), number });
+		this->addStudent(Student { name.get<std::string>(), surname.get<std::string>(), number });
 	}
 
 	doc.close();
@@ -50,7 +51,12 @@ void Group::saveToExcel(const std::string& filename)
 	using namespace OpenXLSX;
 	XLDocument doc;
 
-	doc.create(filename);
+	if (std::filesystem::exists(filename))
+	{
+		doc.open(filename);
+	} else {
+		doc.create(filename);
+	}
 
 	auto wbk = doc.workbook();
 
