@@ -51,24 +51,27 @@ void Group::saveToExcel(const std::string& filename)
 	using namespace OpenXLSX;
 	XLDocument doc;
 
+	// Перевіряємо, чи існує файл. Якщо файл існує, то його не перестворюємо, а відкриваємо
 	if (std::filesystem::exists(filename))
 	{
 		doc.open(filename);
-	} else {
+	}
+	else
+	{
 		doc.create(filename);
 	}
 
 	auto wbk = doc.workbook();
 
+	// Перевіряємо, чи існує Аркуш з іменем групи, якщо не існує додаємо
 	if (!wbk.worksheetExists(std::to_string(number)))
 	{
 		wbk.addWorksheet(std::to_string(number));
 	}
 
-	if (wbk.worksheetExists("Sheet1"))
-	{
-		wbk.deleteSheet("Sheet1");
-	}
+	// clang-format off
+	/* Maybe depracte in future */ if (wbk.worksheetExists("Sheet1")) { wbk.deleteSheet("Sheet1"); }
+	// clang-format on
 
 	auto wks = wbk.worksheet(std::to_string(number));
 

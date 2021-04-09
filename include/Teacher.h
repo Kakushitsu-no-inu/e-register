@@ -1,6 +1,12 @@
 #pragma once
 #include "Person.h"
 
+/**
+ * @class Teacher @file Teacher.h
+ * 
+ * @brief Клас описує вчителя
+ * 
+ */
 class Teacher : public Person
 {
 public:
