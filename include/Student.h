@@ -1,5 +1,8 @@
 #pragma once
+#include "Mark.h"
 #include "Person.h"
+#include <vector>
+
 
 /**
  * @class Student @file Student.h
@@ -32,6 +35,9 @@ public:
 	 */
 	int getGroup() const;
 
+	void addMark(const Mark &mark);
+
 private:
 	int group {};
+	std::vector<Mark> marks;
 };
