@@ -9,6 +9,12 @@ struct Mark
 	std::string subject {};
 	std::tm date {};
 
+	Mark(std::optional<int> value, std::string_view subject, const std::tm& date) :
+		value { value },
+		subject { subject },
+		date { date }
+	{}
+
 	std::string getDate()
 	{
 		char c[9];
