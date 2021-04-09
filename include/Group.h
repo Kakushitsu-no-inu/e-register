@@ -41,7 +41,7 @@ public:
 	void saveToExcel(const std::string& filename);
 
 private:
-	// Компаратор для студентів по їхньому прізвищу
+	// Компаратор для студентів по їхньому прізвищу та імені в алфавітному порядку
 	struct compare
 	{
 		bool operator()(const Student& stud1, const Student& stud2) const
