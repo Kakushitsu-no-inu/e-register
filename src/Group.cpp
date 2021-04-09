@@ -37,7 +37,7 @@ void Group::loadFromExcel(const std::string& filename, int number)
 	doc.open(filename);
 	auto wks = doc.workbook().worksheet(std::to_string(number));
 
-	auto max = wks.rowCount();
+	auto max = wks.rowCount() + 1;
 	for (int index { 2 }; index < max; index++)
 	{
 		auto surname = wks.cell(XLCellReference("A" + std::to_string(index))).value();
