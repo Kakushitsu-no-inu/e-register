@@ -42,7 +42,8 @@ private:
 	{
 		bool operator()(const Student& stud1, const Student& stud2) const
 		{
-			return stud1.getSurname() < stud2.getSurname();
+			return stud1.getSurname() < stud2.getSurname()
+				|| (stud1.getSurname() == stud2.getSurname() && stud1.getName() < stud2.getName());
 		}
 	};
 
