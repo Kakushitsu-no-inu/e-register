@@ -32,6 +32,8 @@ void Group::loadFromExcel(const std::string& filename, int number)
 	using namespace OpenXLSX;
 	XLDocument doc;
 
+	this->number = number;
+
 	doc.open(filename);
 	auto wks = doc.workbook().worksheet(std::to_string(number));
 
