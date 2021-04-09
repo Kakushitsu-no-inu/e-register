@@ -1,5 +1,7 @@
 #pragma once
 #include "Person.h"
+#include "Student.h"
+#include <optional>
 
 /**
  * @class Teacher @file Teacher.h
@@ -21,6 +23,8 @@ public:
 	const std::string& getSubject() const;
 
 	const std::string& getPassword() const;
+
+	void setMark(Student& stud, std::optional<int> value);
 
 private:
 	std::string subject {};
