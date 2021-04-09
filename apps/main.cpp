@@ -21,6 +21,7 @@ auto main() -> int
 	KN_315.saveToExcel("college.xlsx");
 
 	Group K314 {};
+	// Файл повинен бути відкритим
 	K314.loadFromExcel("college.xlsx", 314);
 
     return 0;
