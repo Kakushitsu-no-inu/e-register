@@ -8,7 +8,11 @@ public:
 	Group() = default;
 
 	Group(int number);
-
+	/**
+	 * @brief Функція додає студента в групу 
+	 * 
+	 * @param stud Об'єкт студента
+	 */
 	void addStudent(const Student& stud);
 
 	/**
