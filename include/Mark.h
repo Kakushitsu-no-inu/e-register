@@ -15,7 +15,7 @@ struct Mark
 		date { date }
 	{}
 
-	std::string getDate()
+	std::string getDate() const
 	{
 		char c[9];
 		std::strftime(c, 9, "%d/%m/%y", &date);

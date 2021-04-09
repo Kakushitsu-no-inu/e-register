@@ -3,15 +3,8 @@
 
 auto main() -> int
 {
-	Stuff clg {};
-
-	clg.addTeacher(Teacher { "Lazoryk", "Vasyl", "OOP" });
-	clg.addTeacher(Teacher { "Koropetskyi", "Vasyl", "WEB" });
-
-	clg.saveToFile();
-
-	Stuff test {};
-	test.loadFromFile();
-
+	Teacher a{"Lazoryk", "Vasyl", "OOP"};
+	Student b{"Andrii","Liashenko",314};
+	a.setMark(b,{3});
 	return 0;
 }

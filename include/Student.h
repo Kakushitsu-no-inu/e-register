@@ -3,7 +3,6 @@
 #include "Person.h"
 #include <vector>
 
-
 /**
  * @class Student @file Student.h
  * 
@@ -35,7 +34,11 @@ public:
 	 */
 	int getGroup() const;
 
-	void addMark(const Mark &mark);
+	void addMark(const Mark& mark);
+	const Mark& getMark() const
+	{
+		return *(marks.end() - 1);
+	}
 
 private:
 	int group {};
