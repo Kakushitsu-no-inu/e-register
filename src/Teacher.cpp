@@ -25,7 +25,7 @@ const std::string& Teacher::getPassword() const
 	return password;
 }
 
-void Teacher::setMark(Student& stud, std::optional<int> value)
+void Teacher::setMark(Student& stud, std::optional<int> value) const
 {
 	std::time_t now { std::time(nullptr) };
 	std::tm* date { std::localtime(&now) };

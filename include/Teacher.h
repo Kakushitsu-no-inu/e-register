@@ -26,7 +26,7 @@ public:
 
 	const std::string& getPassword() const;
 
-	void setMark(Student& stud, std::optional<int> value);
+	void setMark(Student& stud, std::optional<int> value) const;
 
 private:
 	std::string subject {};
