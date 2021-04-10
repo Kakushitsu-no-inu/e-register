@@ -1,6 +1,7 @@
 #pragma once
 #include "Mark.h"
 #include "Person.h"
+#include <map>
 #include <vector>
 
 /**
@@ -34,13 +35,22 @@ public:
 	 */
 	int getGroup() const;
 
-	void addMark(const Mark& mark);
-	const Mark& getMark() const
-	{
-		return *(marks.end() - 1);
-	}
+	/**
+	 * @brief 
+	 * 
+	 * @param mark 
+	 */
+	void addMark(const std::string& subject, const Mark& mark);
+
+	/**
+	 * @brief Функція повертає останню оцінку з предмету
+	 * 
+	 * @return Оцінка
+	 */
+	const Mark& getMark(const std::string& subject) const
+	{}
 
 private:
 	int group {};
-	std::vector<Mark> marks;
+	std::map<std::string, std::vector<Mark>> marks;
 };

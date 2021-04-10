@@ -30,5 +30,5 @@ void Teacher::setMark(Student& stud, std::optional<int> value)
 	std::time_t now { std::time(nullptr) };
 	std::tm* date { std::localtime(&now) };
 
-	stud.addMark(Mark { value, subject, *date });
+	stud.addMark(this->subject, Mark { value, this->subject, *date });
 }

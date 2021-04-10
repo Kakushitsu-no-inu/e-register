@@ -108,12 +108,12 @@ void Group::updateSubject(const std::string& subject)
 	auto wks = wbk.worksheet(subject);
 
 	auto current_date = wks.columnCount() + 2;
-	wks.cell(XLCellReference(1, current_date)).value() = students.begin()->getMark().getDate();
+	wks.cell(XLCellReference(1, current_date)).value() = students.begin()->getMark(subject).getDate();
 
 	int index { 2 };
 	for (auto& stud : students)
 	{
-		wks.cell(XLCellReference(index, current_date)).value() = stud.getMark().value.value_or(-1);
+		wks.cell(XLCellReference(index, current_date)).value() = stud.getMark(subject).value.value_or(-1);
 		index++;
 	}
 
