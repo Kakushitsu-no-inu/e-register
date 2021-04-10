@@ -18,3 +18,13 @@ int Student::getGroup() const
 {
 	return group;
 }
+
+void Student::addMark(const std::string& subject, const Mark& mark)
+{
+	marks[subject].emplace_back(mark);
+}
+
+const Mark& Student::getMark(const std::string& subject) const
+{
+	return *(marks.at(subject).end() - 1);
+}

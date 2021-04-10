@@ -8,6 +8,7 @@ set(SOURCES
         ${INC}/Teacher.h        ${SRC}/Teacher.cpp
         ${INC}/Group.h        ${SRC}/Group.cpp
         ${INC}/Stuff.h        ${SRC}/Stuff.cpp
+        ${INC}/Mark.h
 )
 
 add_library(e-lib ${SOURCES})

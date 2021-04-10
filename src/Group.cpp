@@ -27,6 +27,18 @@ bool Group::removeStudent(std::string_view name, std::string_view surname)
 	return false;
 }
 
+Student& Group::getStudent(std::string_view name, std::string_view surname) const
+{
+	Student toFind { name, surname, this->number };
+
+	if (auto search = students.find(toFind); search != students.end())
+	{
+		return const_cast<Student&>(*search);
+	}
+
+	// added exception
+}
+
 void Group::loadFromExcel(const std::string& filename, int number)
 {
 	using namespace OpenXLSX;
@@ -90,4 +102,38 @@ void Group::saveToExcel(const std::string& filename)
 
 	doc.save();
 	doc.close();
+}
+
+void Group::updateSubject(const std::string& subject)
+{
+	using namespace OpenXLSX;
+	XLDocument doc;
+	doc.open(std::to_string(number) + ".xlsx");
+
+	auto wbk = doc.workbook();
+	/// Перевіряємо, чи існує Аркуш з предметом, якщо не існує клонуємо
+	if (!wbk.worksheetExists(subject))
+	{
+		wbk.cloneSheet(std::to_string(number), subject);
+	}
+
+	auto wks = wbk.worksheet(subject);
+
+	auto current_date = wks.columnCount() + 2;
+	wks.cell(XLCellReference(1, current_date)).value() = students.begin()->getMark(subject).getDate();
+
+	int index { 2 };
+	for (auto& stud : students)
+	{
+		wks.cell(XLCellReference(index, current_date)).value() = stud.getMark(subject).value.value_or(-1);
+		index++;
+	}
+
+	doc.save();
+	doc.close();
+}
+
+int Group::getNumber() const
+{
+	return this->number;
 }

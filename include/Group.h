@@ -24,6 +24,8 @@ public:
 	 */
 	bool removeStudent(std::string_view name, std::string_view surname);
 
+	Student& getStudent(std::string_view name, std::string_view surname) const;
+
 	/**
 	 * @brief Функція зчитує групу з файлу EXCEL
 	 * 
@@ -39,6 +41,15 @@ public:
 	 * @param filename Ім'я файлу (з роширенням .xlsx)
 	 */
 	void saveToExcel(const std::string& filename);
+
+	/**
+	 * @brief Функція оновлює дані про предмет
+	 * 
+	 * @param subject предмет
+	 */
+	void updateSubject(const std::string& subject);
+
+	int getNumber() const;
 
 private:
 	// Компаратор для студентів по їхньому прізвищу та імені в алфавітному порядку
