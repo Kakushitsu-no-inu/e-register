@@ -8,12 +8,10 @@ void Stuff::saveToFile()
 	std::ofstream file { Config::STUFF_FILE, std::ios::out };
 	if (file.good())
 	{
-		const auto write = [&file](const Teacher& teacher) {
+		std::for_each(teachers.begin(), teachers.end(), [&file](const Teacher& teacher) {
 			file << teacher.getSurname() << ' ' << teacher.getName() << ' ' << teacher.getSubject() << ' '
 				 << teacher.getPassword() << '\n';
-		};
-
-		std::for_each(teachers.begin(), teachers.end(), write);
+		});
 	}
 
 	file.close();
