@@ -47,8 +47,7 @@ public:
 	 * 
 	 * @return Оцінка
 	 */
-	const Mark& getMark(const std::string& subject) const
-	{}
+	const Mark& getMark(const std::string& subject) const;
 
 private:
 	int group {};

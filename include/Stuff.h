@@ -5,15 +5,15 @@
 class Stuff
 {
 public:
-     Stuff() = default;
+	Stuff() = default;
 
-    /**
+	/**
      * @brief Функція записує
      * 
      */
 	void saveToFile();
 
-     void loadFromFile();
+	void loadFromFile();
 
 	/**
      * @brief Функція додає нового викладача до колективу
@@ -22,7 +22,9 @@ public:
      */
 	void addTeacher(const Teacher& newTeacher);
 
-     // void deleteTeacher(std::string_view surname, std::string_view name);
+	// void deleteTeacher(std::string_view surname, std::string_view name);
+
+	const Teacher& getTeacher(std::string_view surname, std::string_view name) const;
 
 private:
 	std::vector<Teacher> teachers;

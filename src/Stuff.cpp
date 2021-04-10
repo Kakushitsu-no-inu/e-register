@@ -36,3 +36,15 @@ void Stuff::addTeacher(const Teacher& newTeacher)
 {
 	teachers.emplace_back(newTeacher);
 }
+
+const Teacher& Stuff::getTeacher(std::string_view surname, std::string_view name) const
+{
+	if (auto find = std::find_if(teachers.begin(),
+			teachers.end(),
+			[&surname, &name](
+				const Teacher& teach) { return teach.getSurname() == surname && teach.getName() == name; });
+		find != teachers.end())
+	{
+		return *find;
+	}
+}

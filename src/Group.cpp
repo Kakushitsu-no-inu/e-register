@@ -27,6 +27,18 @@ bool Group::removeStudent(std::string_view name, std::string_view surname)
 	return false;
 }
 
+Student& Group::getStudent(std::string_view name, std::string_view surname) const
+{
+	Student toFind { name, surname, this->number };
+
+	if (auto search = students.find(toFind); search != students.end())
+	{
+		return const_cast<Student&>(*search);
+	}
+
+	// added exception
+}
+
 void Group::loadFromExcel(const std::string& filename, int number)
 {
 	using namespace OpenXLSX;
@@ -119,4 +131,9 @@ void Group::updateSubject(const std::string& subject)
 
 	doc.save();
 	doc.close();
+}
+
+int Group::getNumber() const
+{
+	return this->number;
 }
