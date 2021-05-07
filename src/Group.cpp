@@ -1,4 +1,6 @@
 #include "Group.h"
+#include "config.h"
+#include "utils.hpp"
 #include <OpenXLSX.hpp>
 #include <filesystem>
 
@@ -35,18 +37,15 @@ Student& Group::getStudent(std::string_view name, std::string_view surname) cons
 	{
 		return const_cast<Student&>(*search);
 	}
-
-	// added exception
+	throw person_error { "not found student", __FILE__, __LINE__, __PRETTY_FUNCTION__, "no such student in set" };
 }
 
-void Group::loadFromExcel(const std::string& filename, int number)
+void Group::loadFromExcel()
 {
 	using namespace OpenXLSX;
 	XLDocument doc;
 
-	this->number = number;
-
-	doc.open(filename);
+	doc.open(std::to_string(number) + "Config::EXC_FILE");
 	auto wks = doc.workbook().worksheet(std::to_string(number));
 
 	auto max = wks.rowCount() + 1;
@@ -60,11 +59,45 @@ void Group::loadFromExcel(const std::string& filename, int number)
 	doc.close();
 }
 
-void Group::saveToExcel(const std::string& filename)
+void Group::loadSubject(const std::string& subject)
+{
+	using namespace OpenXLSX;
+	XLDocument doc;
+	doc.open(std::to_string(number) + "Config::EXC_FILE");
+
+	auto wbk = doc.workbook();
+	if (!wbk.worksheetExists(subject))
+	{
+		doc.close();
+		return;
+	}
+	auto wks = wbk.worksheet(subject);
+	auto row = wks.rowCount() + 1;
+	auto col = wks.row(1).cellCount() + 1;
+	int i = 2;
+	for (auto& stud : students)
+	{
+		for (auto j { 3 }; j < col; j++)
+		{
+			auto val = wks.cell(XLCellReference(i, j)).value().get<int>();
+			auto date = wks.cell(XLCellReference(1, j)).value().asString();
+			tm tm;
+			strptime(date.c_str(), "%d.%m.%Y", &tm);
+			auto mark = (val != -1) ? std::optional<int> { val } : std::nullopt;
+			stud.addMark(subject, Mark { mark, subject, tm });
+		}
+		i++;
+	}
+
+	doc.close();
+}
+
+void Group::saveToExcel()
 {
 	using namespace OpenXLSX;
 	XLDocument doc;
 
+	auto filename = (std::to_string(number) + "Config::EXC_FILE");
 	// Перевіряємо, чи існує файл. Якщо файл існує, то його не перестворюємо, а відкриваємо
 	if (std::filesystem::exists(filename))
 	{
@@ -108,7 +141,7 @@ void Group::updateSubject(const std::string& subject)
 {
 	using namespace OpenXLSX;
 	XLDocument doc;
-	doc.open(std::to_string(number) + ".xlsx");
+	doc.open(std::to_string(number) + "Config::EXC_FILE");
 
 	auto wbk = doc.workbook();
 	/// Перевіряємо, чи існує Аркуш з предметом, якщо не існує клонуємо
@@ -119,7 +152,7 @@ void Group::updateSubject(const std::string& subject)
 
 	auto wks = wbk.worksheet(subject);
 
-	auto current_date = wks.columnCount() + 2;
+	auto current_date = wks.row(1).cellCount() + 1;
 	wks.cell(XLCellReference(1, current_date)).value() = students.begin()->getMark(subject).getDate();
 
 	int index { 2 };
@@ -136,4 +169,11 @@ void Group::updateSubject(const std::string& subject)
 int Group::getNumber() const
 {
 	return this->number;
+}
+
+void Group::clear()
+{
+	students.clear();
+	number = 0;
+	count = 0;
 }

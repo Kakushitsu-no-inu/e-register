@@ -47,4 +47,5 @@ const Teacher& Stuff::getTeacher(std::string_view surname, std::string_view name
 	{
 		return *find;
 	}
+	throw person_error { "not found teacher", __FILE__, __LINE__, __PRETTY_FUNCTION__, "no such teacher in set" };
 }

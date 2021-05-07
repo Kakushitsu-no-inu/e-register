@@ -9,11 +9,11 @@ set(CMAKE_CXX_STANDARD 17)
 
 include(scripts/excel.cmake)
 
-# add_subdirectory(src)
+add_subdirectory(src)
 add_subdirectory(ui)
 add_subdirectory(utils)
 
-set(EXT_LIBS ui utils)
+set(EXT_LIBS ui e-lib)
 
 add_executable(e-register apps/main.cpp)
 # target_include_directories(e-register PRIVATE ${CMAKE_SOURCE_DIR}/include)

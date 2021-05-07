@@ -40,7 +40,7 @@ public:
 	 * 
 	 * @param mark 
 	 */
-	void addMark(const std::string& subject, const Mark& mark);
+	void addMark(const std::string& subject, const Mark& mark) const;
 
 	/**
 	 * @brief Функція повертає останню оцінку з предмету
@@ -51,5 +51,6 @@ public:
 
 private:
 	int group {};
-	std::map<std::string, std::vector<Mark>> marks;
+	mutable std::map<std::string, std::vector<Mark>> marks;
 };
+

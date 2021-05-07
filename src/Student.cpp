@@ -19,7 +19,7 @@ int Student::getGroup() const
 	return group;
 }
 
-void Student::addMark(const std::string& subject, const Mark& mark)
+void Student::addMark(const std::string& subject, const Mark& mark) const 
 {
 	marks[subject].emplace_back(mark);
 }

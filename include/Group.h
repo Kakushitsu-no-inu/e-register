@@ -29,18 +29,21 @@ public:
 	/**
 	 * @brief Функція зчитує групу з файлу EXCEL
 	 * 
-	 * @param filename Ім'я файлу (з роширенням .xlsx) 
-	 * @param number Групу, яку треба зчитати
 	 */
-	void loadFromExcel(const std::string& filename, int number);
+	void loadFromExcel();
+	/**
+	 * @brief Функція зчитує оцінки з файлу
+	 * 
+	 */
+	void loadSubject(const std::string& subject);
 
 	/**
 	 * @brief Функція записує групу у файл EXCEL. 
 	 * 		  Створює Аркуш з назвою номера групи
 	 * 
-	 * @param filename Ім'я файлу (з роширенням .xlsx)
+	 * @param filename Ім'я файлу (з роширенням Config::EXC_FILE)
 	 */
-	void saveToExcel(const std::string& filename);
+	void saveToExcel();
 
 	/**
 	 * @brief Функція оновлює дані про предмет
@@ -49,7 +52,11 @@ public:
 	 */
 	void updateSubject(const std::string& subject);
 
+	void setNumber(int number) { this->number = number; }
+
 	int getNumber() const;
+
+	void clear();
 
 private:
 	// Компаратор для студентів по їхньому прізвищу та імені в алфавітному порядку
