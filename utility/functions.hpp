@@ -38,7 +38,7 @@ void Pause()
 void clrscr()
 {
 #ifdef _WIN32
-	system("cls")
+	system("cls");
 #elif __linux__
 	system("clear");
 #endif
