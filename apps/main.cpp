@@ -4,7 +4,7 @@
 
 auto main() -> int
 {
-    Group KN_314 { 314 };
+	Group KN_314 { 314 };
 	Stuff clg {};
 
 	clg.addTeacher(Teacher { "Vasyl", "Lazoryk", "OOP" });
