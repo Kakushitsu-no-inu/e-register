@@ -1,19 +1,17 @@
-#pragma once
-#include <string>
-
-#include <time.h>
+#include "utils.hpp"
 
 #ifdef _WIN32
-#include <iomanip>
-#include <sstream>
+	#include <time.h>
+	#include <sstream>
 	#include <windows.h>
 #elif __linux__
 	#include <termios.h>
-	#include <unistd.h>
 #endif
 
+#include <iostream>
+
 #ifdef _WIN32
-extern "C" char* strptime(const char* s, const char* f, struct tm* tm)
+char* strptime(const char* s, const char* f, struct tm* tm)
 {
 	std::istringstream input(s);
 	input.imbue(std::locale(setlocale(LC_ALL, nullptr)));
@@ -24,18 +22,14 @@ extern "C" char* strptime(const char* s, const char* f, struct tm* tm)
 	}
 	return (char*)(s + input.tellg());
 }
-#endif
 
-void Pause()
+void pause()
 {
-#ifdef _WIN32
 	system("pause");
-#elif __linux__
-	pause();
-#endif
 }
+#endif
 
-void clrscr()
+void cls()
 {
 #ifdef _WIN32
 	system("cls");
@@ -44,15 +38,7 @@ void clrscr()
 #endif
 }
 
-namespace Utility
-{
-enum EchoMode
-{
-	OFF = 0x0,
-	ON = 0x1,
-};
-
-void echo(bool _mode)
+static void echo(bool _mode)
 {
 #ifdef __WIN32
 	DWORD mode;
@@ -68,12 +54,11 @@ void echo(bool _mode)
 #endif
 }
 
-std::string InputPassword(std::istream& in)
+std::string input_password()
 {
-	std::string password {};
-	echo(EchoMode::OFF);
-	std::getline(in, password);
-	echo(EchoMode::ON);
+	std::string password { "" };
+	echo(0x0);
+	std::getline(std::cin, password);
+	echo(0x1);
 	return password;
-}
 }

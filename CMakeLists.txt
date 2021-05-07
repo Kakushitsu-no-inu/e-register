@@ -11,7 +11,10 @@ include(scripts/excel.cmake)
 
 # add_subdirectory(src)
 add_subdirectory(ui)
+add_subdirectory(utils)
+
+set(EXT_LIBS ui utils)
 
 add_executable(e-register apps/main.cpp)
 # target_include_directories(e-register PRIVATE ${CMAKE_SOURCE_DIR}/include)
-target_link_libraries(e-register PRIVATE ui)
+target_link_libraries(e-register PRIVATE ${EXT_LIBS})
