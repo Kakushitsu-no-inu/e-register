@@ -41,11 +41,21 @@ const Teacher& Stuff::getTeacher(std::string_view surname, std::string_view name
 {
 	if (auto find = std::find_if(teachers.begin(),
 			teachers.end(),
-			[&surname, &name](
-				const Teacher& teach) { return teach.getSurname() == surname && teach.getName() == name; });
+			[&](const Teacher& teach) { return teach.getSurname() == surname && teach.getName() == name; });
 		find != teachers.end())
 	{
 		return *find;
+	}
+	throw person_error { "not found teacher", __FILE__, __LINE__, __PRETTY_FUNCTION__, "no such teacher in set" };
+}
+
+const Teacher& Stuff::signIn(const std::string& password)
+{
+	if (auto it = std::find_if(
+			teachers.begin(), teachers.end(), [&](const Teacher& t) { return t.getPassword() == password; });
+		it != teachers.end())
+	{
+		return *it;
 	}
 	throw person_error { "not found teacher", __FILE__, __LINE__, __PRETTY_FUNCTION__, "no such teacher in set" };
 }
