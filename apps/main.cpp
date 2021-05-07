@@ -1,24 +1,40 @@
-#include "Group.h"
-#include "Stuff.h"
-#include <iostream>
+#include "ui.h"
 
 auto main() -> int
 {
-	Group KN_314 { 314 };
-	Stuff clg {};
+	std::string nameStudent = "Student 1";
+	size_t mark = 30;
+	auto w1 = make_window("Main Menu",
+		"",
+		Option([](IMenu* menu) { menu->switchWindow(1); }, "Menu 1"),
+		Option([](IMenu*) { exit(0); }, "Exit"));
+	auto w2 = make_window("Menu 1",
+		"",
+		Option(
+			[&](IMenu*) {
+				std::cout << "Enter new mark: ";
+				std::cin >> mark;
+				std::cout << "New mark is " << mark << "\n";
+			},
+			"Set Mark"),
+		Option(
+			[&](IMenu*) {
+				std::cout << "Enter new name student: ";
+				std::cin >> nameStudent;
+				std::cout << "New name is " << nameStudent << '\n';
+			},
+			"Set New Name"),
+		Option([&](IMenu*) { std::cout << nameStudent << " " << mark << '\n'; }, "Print info"),
+		Option([](IMenu* menu) { menu->switchWindow(0); }, "Return"));
 
-	clg.addTeacher(Teacher { "Vasyl", "Lazoryk", "OOP" });
-
-	KN_314.addStudent(Student { "Andrii", "Liashenko" });
-	KN_314.addStudent(Student { "Ivan", "Tkachuk" });
-
-	KN_314.saveToExcel("314.xlsx");
-
-	auto& oop = clg.getTeacher("Lazoryk", "Vasyl");
-	oop.setMark(KN_314.getStudent("Andrii", "Liashenko"), { 20 });
-	oop.setMark(KN_314.getStudent("Ivan", "Tkachuk"), { 20 });
-	oop.setMark(KN_314.getStudent("Andrii", "Liashenko"), { 30 });
-	oop.setMark(KN_314.getStudent("Ivan", "Tkachuk"), { 30 });
-
-	KN_314.updateSubject(oop.getSubject());
+	auto menu = make_menu(w1, w2);
+	while (true)
+	{
+		menu.print();
+		size_t choice;
+		std::cin >> choice;
+		choice--;
+		menu.handle(choice);
+		std::cout << '\n';
+	}
 }

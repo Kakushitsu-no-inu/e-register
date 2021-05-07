@@ -9,8 +9,9 @@ set(CMAKE_CXX_STANDARD 17)
 
 include(scripts/excel.cmake)
 
-add_subdirectory(src)
+# add_subdirectory(src)
+add_subdirectory(ui)
 
 add_executable(e-register apps/main.cpp)
-target_include_directories(e-register PRIVATE ${CMAKE_SOURCE_DIR}/include)
-target_link_libraries(e-register PRIVATE e-lib)
+# target_include_directories(e-register PRIVATE ${CMAKE_SOURCE_DIR}/include)
+target_link_libraries(e-register PRIVATE ui)
