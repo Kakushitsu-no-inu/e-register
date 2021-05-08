@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <istream>
 #ifdef __linux__
 	#include <unistd.h>
 #endif
@@ -12,4 +13,4 @@ void pause();
 
 void cls();
 
-std::string input_password();
+std::string input_password(std::istream &is);
