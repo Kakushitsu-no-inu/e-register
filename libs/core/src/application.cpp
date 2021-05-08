@@ -21,15 +21,15 @@ void application::run() {
 }
 
 auto application::init() -> menu<stage<3UL>, stage<3UL>, stage<2UL>, stage<5UL>> {
-  m_stuff.loadFromFile();
+  m_stuff.load_from_file();
 
   auto sing_in = make_window(
     "Sign In",
     option{[&](menu_base *menu) {
              if (sign_in_teacher()) {
                std::cout << "\nYou are sign in as "
-                         << m_current_teacher->getName() + " " + m_current_teacher->getSurname() +
-                              " [" + m_current_teacher->getSubject() + "]\n";
+                         << m_current_teacher->get_name() + " " + m_current_teacher->get_surname() +
+                              " [" + m_current_teacher->get_subject() + "]\n";
                menu->switch_window(1);
              } else {
                std::cout << "\nBad password!\n";
@@ -85,11 +85,11 @@ auto application::init() -> menu<stage<3UL>, stage<3UL>, stage<2UL>, stage<5UL>>
 void application::change_password() {
   std::cout << "Enter new password: ";
   std::string password = input_password(std::cin);
-  m_current_teacher->setPassword(password);
+  m_current_teacher->set_password(password);
 }
 
 void application::quit() {
-  m_stuff.saveToFile();
+  m_stuff.save_to_file();
   exit(EXIT_SUCCESS);
 }
 
@@ -101,7 +101,7 @@ bool application::select_group() {
     return false;
   } else {
     try {
-      m_group.loadFromExcel();
+      m_group.load_from_excel();
       return true;
     } catch (...) {
       return false;
@@ -116,7 +116,7 @@ bool application::sign_in_stud() {
     std::cin >> name >> surname;
 
     try {
-      m_current_student = m_group.getStudent(name, surname);
+      m_current_student = m_group.get_student(name, surname);
       return true;
     } catch (person_error &err) {
       return false;
@@ -130,11 +130,11 @@ bool application::sign_in_teacher() {
   std::string password = input_password(std::cin);
 
   try {
-    m_current_teacher = m_stuff.signIn(password);
+    m_current_teacher = m_stuff.sign_in(password);
     return true;
   } catch (person_error &err) {
     return false;
   }
 }
 
-void application::show_mark(Student const &) {}
+void application::show_mark(student const &) {}

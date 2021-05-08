@@ -16,12 +16,12 @@ target_include_directories(utils PUBLIC
 
 add_library(core STATIC
     core/include/config.h
-    core/include/Person.h       core/src/Person.cpp
-    core/include/Student.h      core/src/Student.cpp
-    core/include/Teacher.h      core/src/Teacher.cpp
-    core/include/Group.h        core/src/Group.cpp
-    core/include/Stuff.h        core/src/Stuff.cpp
-    core/include/Mark.h
+    core/include/person.h       core/src/person.cpp
+    core/include/student.h      core/src/student.cpp
+    core/include/teacher.h      core/src/teacher.cpp
+    core/include/group.h        core/src/group.cpp
+    core/include/stuff.h        core/src/stuff.cpp
+    core/include/mark.h         core/src/mark.cpp
     core/include/application.h  core/src/application.cpp
 )
 target_include_directories(core PUBLIC

@@ -1,7 +1,10 @@
 #pragma once
 
-#include "Group.h"
-#include "Stuff.h"
+// clang-format off
+#include "stuff.h"
+#include "group.h"
+#include "mark.h"
+// clang-format on
 #include "ui.h"
 #include "utils.hpp"
 
@@ -24,12 +27,13 @@ private:
 
   void quit();
 
-  void show_mark(const Student &stud);
+  void show_mark(const student &stud);
 
-  Stuff m_stuff;
-  Group m_group;
+  stuff m_stuff;
+  group m_group;
 
-  Teacher *                                            m_current_teacher{};
-  Student *                                            m_current_student{};
+  teacher *m_current_teacher{};
+  student *m_current_student{};
+
   menu<stage<3UL>, stage<3UL>, stage<2UL>, stage<5UL>> m_menu;
 };
