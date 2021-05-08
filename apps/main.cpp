@@ -1,15 +1,11 @@
-#include "college.h"
+#include "application.h"
 
-int main()
-{
-	auto clg = College::getInstance();
-	try
-	{
-		clg.run();
-	}
-	catch (std::exception& err)
-	{
-		std::cout << err.what() << std::endl;
-	}
-	return 0;
+int main() {
+  auto clg = application::get_instance();
+  try {
+    clg.run();
+  } catch (std::exception &err) {
+    std::cout << err.what() << std::endl;
+  }
+  return 0;
 }
