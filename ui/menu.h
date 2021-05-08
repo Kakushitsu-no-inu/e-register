@@ -55,6 +55,7 @@ template <std::size_t I = 0, typename FuncT, typename... Tp>
 		f(std::get<I>(t));
 	for_index<I + 1, FuncT, Tp...>(index - 1, t, f);
 };
+
 // clang-format on
 
 template <typename... windows_t>
@@ -81,7 +82,7 @@ struct Menu : public IMenu
 	{
 		for_index(current, windows, WindowHandleFunctor(this, option));
 	}
-};
+
 
 template <typename... Windows>
 constexpr auto make_menu(Windows... w) -> Menu<Windows...>
