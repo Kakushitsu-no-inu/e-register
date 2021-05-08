@@ -1,5 +1,7 @@
 #include "college.h"
 
+#include <cstddef>
+
 void College::run()
 {
 	while (true)
@@ -17,26 +19,28 @@ auto College::init() -> Menu<Window<3UL>, Window<3UL>, Window<2UL>, Window<5UL>>
 	stuff.loadFromFile();
 
 	// clang-format off
-	auto sing_in = make_window("Sign In", "",
-		Option([&](IMenu* menu) { if (signInTeacher()) { menu->switchWindow(1); } else { std::cout << "Bad password!\n"; } },
+	auto sing_in = make_window("Sign In",
+		Option([&](IMenu* menu) { if (signInTeacher()) { 
+			std::cout << "\nYou are sign in as " << currTeacher->getName() + " " + currTeacher->getSurname() + " [" + currTeacher->getSubject() + "]\n";
+			menu->switchWindow(1); } else { std::cout << "\nBad password!\n"; } },
 			"as Teacher"),
 		Option([&](IMenu* menu) { if (signInStudent()) { menu->switchWindow(2); } }, "as Student"),
-		Option([&](IMenu*) { exit(EXIT_SUCCESS); }, "Exit")
+		Option([&](IMenu*) { quit(); }, "Exit")
 		/*Option([&](IMenu *menu) { if (signInAdmin()) { menu->switchWindow(4); } }) */);
 
 	auto student_menu = make_window("Student Options",
-		std::string("You are sign in " + currStudent->getName() + " " + currStudent->getSurname()).c_str(),
 		Option([&](IMenu *) { showMark(*currStudent); }, "Show Marks"),
-		Option([&](IMenu *) { exit(EXIT_SUCCESS); }, "Exit"));
+		Option([&](IMenu *) { quit(); }, "Exit"));
 
-	auto teacher_menu = make_window("Teacher Options",
-		std::string("You are sign in " + currTeacher->getName() + " " + currTeacher->getSurname() + " [" + currTeacher->getSubject() + "]").c_str(),
+	auto teacher_menu = make_window("Teacher Options", 
 		Option([&](IMenu* menu) { if (selectGroup()) { menu->switchWindow(3); } else { std::cout << "Bad number group!!! Try again.\n"; } },
 			"Select group"),
 		Option([&](IMenu*) { changePassword(); }, "Change Password"),
-		Option([&](IMenu* menu) { currTeacher = nullptr; menu->switchWindow(0); }, "Log Out"));
+		Option([&](IMenu* menu) { currTeacher = nullptr; 
+			stuff.saveToFile();
+			menu->switchWindow(0); }, "Log Out"));
 
-	auto group_menu = make_window("What to do?", "",
+	auto group_menu = make_window("What to do?",
 		Option([&](IMenu*) { /* group.show(); */ }, "Show Students"),
 		Option([&](IMenu*) { /* setMarkStudent(); */ }, "Set Student's Mark"),
 		Option([&](IMenu*) { /* setAllMarks(); */ }, "Set Students' Marks"),
@@ -51,8 +55,14 @@ auto College::init() -> Menu<Window<3UL>, Window<3UL>, Window<2UL>, Window<5UL>>
 void College::changePassword()
 {
 	std::cout << "Enter new password: ";
-	std::string password = input_password();
+	std::string password = input_password(std::cin);
 	currTeacher->setPassword(password);
+}
+
+void College::quit()
+{
+	stuff.saveToFile();
+	exit(EXIT_SUCCESS);
 }
 
 bool College::selectGroup()
@@ -88,7 +98,7 @@ bool College::signInStudent()
 
 		try
 		{
-			*currStudent = group.getStudent(name, surname);
+			currStudent = group.getStudent(name, surname);
 			return true;
 		}
 		catch (person_error& err)
@@ -102,11 +112,11 @@ bool College::signInStudent()
 bool College::signInTeacher()
 {
 	std::cout << "Enter password: ";
-	std::string password = input_password();
+	std::string password = input_password(std::cin);
 
 	try
 	{
-		*currTeacher = stuff.signIn(password);
+		currTeacher = stuff.signIn(password);
 		return true;
 	}
 	catch (person_error& err)

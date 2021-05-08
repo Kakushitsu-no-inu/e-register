@@ -8,7 +8,7 @@
 class College
 {
 public:
-	College() : menu(std::move(init()))
+	College() : menu(std::move(init())), currTeacher(nullptr), currStudent(nullptr)
 	{}
 
 	void run();
@@ -22,12 +22,14 @@ private:
 	bool selectGroup();
 	void changePassword();
 
+	void quit();
+
 	void showMark(const Student& stud);
 
 	Stuff stuff;
 	Group group;
 
-	Teacher* currTeacher { nullptr };
-	Student* currStudent { nullptr };
+	Teacher* currTeacher {};
+	Student* currStudent {};
 	Menu<Window<3UL>, Window<3UL>, Window<2UL>, Window<5UL>> menu;
 };

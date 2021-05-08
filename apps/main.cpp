@@ -3,6 +3,10 @@
 int main()
 {
 	College clg;
-	clg.run();
+	try {
+		clg.run();
+	} catch (std::exception &err) {
+		std::cout << err.what() << std::endl;
+	}
 	return 0;
 }
