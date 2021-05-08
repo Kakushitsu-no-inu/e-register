@@ -119,7 +119,7 @@ void Group::saveToExcel()
 	}
 
 	// clang-format off
-	/* Maybe depracte in future */ if (wbk.worksheetExists("Sheet1")) { wbk.deleteSheet("Sheet1"); }
+	/* Maybe deprecate in future */ if (wbk.worksheetExists("Sheet1")) { wbk.deleteSheet("Sheet1"); }
 	// clang-format on
 
 	auto wks = wbk.worksheet(std::to_string(number));
