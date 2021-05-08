@@ -8,15 +8,26 @@
 class College
 {
 public:
-	College();
+	College() : menu(std::move(init()))
+	{}
 
-	void signIn(const std::string& password);
+	void run();
 
 private:
-	void init();
+	auto init() -> Menu<Window<3UL>, Window<3UL>, Window<2UL>, Window<5UL>>;
+
+	bool signInTeacher();
+	bool signInStudent();
+
+	bool selectGroup();
+	void changePassword();
+
+	void showMark(const Student& stud);
 
 	Stuff stuff;
 	Group group;
 
-	Teacher& current;
+	Teacher* currTeacher { nullptr };
+	Student* currStudent { nullptr };
+	Menu<Window<3UL>, Window<3UL>, Window<2UL>, Window<5UL>> menu;
 };
