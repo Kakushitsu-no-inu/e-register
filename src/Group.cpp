@@ -42,6 +42,8 @@ Student& Group::getStudent(std::string_view name, std::string_view surname) cons
 
 void Group::loadFromExcel()
 {
+	clear();
+
 	using namespace OpenXLSX;
 	XLDocument doc;
 
