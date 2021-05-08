@@ -6,7 +6,7 @@
 #include <cassert>
 
 struct IMenu {
-    virtual void switchWindow(size_t) = 0;
+    virtual void switch_window(size_t) = 0;
 
     virtual void print() = 0;
 };
@@ -51,7 +51,7 @@ struct Menu : public IMenu {
 
     explicit Menu(std::tuple<windows_t...> windows) : windows(std::move(windows)) {}
 
-    void switchWindow(size_t i) override {
+    void switch_window(size_t i) override {
         assert(i < sizeof...(windows_t));
         current = i;
     }
