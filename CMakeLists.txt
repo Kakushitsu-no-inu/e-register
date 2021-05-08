@@ -15,6 +15,6 @@ add_subdirectory(utils)
 
 set(EXT_LIBS ui e-lib)
 
-add_executable(e-register apps/main.cpp)
+add_executable(e-register apps/main.cpp apps/college.cpp apps/college.h)
 # target_include_directories(e-register PRIVATE ${CMAKE_SOURCE_DIR}/include)
 target_link_libraries(e-register PRIVATE ${EXT_LIBS})
