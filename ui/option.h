@@ -2,6 +2,7 @@
 
 #include "menu.h"
 #include <functional>
+#include <string>
 #include <utility>
 
 struct Option

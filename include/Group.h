@@ -24,7 +24,7 @@ public:
 	 */
 	bool removeStudent(std::string_view name, std::string_view surname);
 
-	Student& getStudent(std::string_view name, std::string_view surname) const;
+	[[nodiscard]] Student* getStudent(std::string_view name, std::string_view surname) const;
 
 	/**
 	 * @brief Функція зчитує групу з файлу EXCEL
@@ -52,7 +52,10 @@ public:
 	 */
 	void updateSubject(const std::string& subject);
 
-	void setNumber(int number) { this->number = number; }
+	void setNumber(int number)
+	{
+		this->number = number;
+	}
 
 	int getNumber() const;
 

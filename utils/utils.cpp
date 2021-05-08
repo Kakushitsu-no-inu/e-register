@@ -38,27 +38,28 @@ void cls()
 #endif
 }
 
-static void echo(bool _mode)
+static void echo(bool on = true)
 {
 #ifdef __WIN32
 	DWORD mode;
 	HANDLE hConIn = GetStdHandle(STD_INPUT_HANDLE);
 	GetConsoleMode(hConIn, &mode);
-	mode = _mode ? (mode | ENABLE_ECHO_INPUT) : (mode & ~(ENABLE_ECHO_INPUT));
+	mode = on ? (mode | ENABLE_ECHO_INPUT) : (mode & ~(ENABLE_ECHO_INPUT));
 	SetConsoleMode(hConIn, mode);
 #elif __linux__
 	struct termios settings;
 	tcgetattr(STDIN_FILENO, &settings);
-	settings.c_lflag = _mode ? (settings.c_lflag | ECHO) : (settings.c_lflag & ~(ECHO));
+	settings.c_lflag = on ? (settings.c_lflag | ECHO) : (settings.c_lflag & ~(ECHO));
 	tcsetattr(STDIN_FILENO, TCSANOW, &settings);
 #endif
 }
 
-std::string input_password()
+std::string input_password(std::istream &is)
 {
 	std::string password { "" };
-	echo(0x0);
-	std::getline(std::cin, password);
-	echo(0x1);
+	echo(false);
+	is.ignore();
+	std::getline(is, password);
+	echo(true);
 	return password;
 }
