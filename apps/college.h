@@ -8,12 +8,17 @@
 class College
 {
 public:
-	College() : menu(std::move(init())), currTeacher(nullptr), currStudent(nullptr)
-	{}
+	static College &getInstance() {
+		static College self;
+		return self;
+	}
 
 	void run();
 
 private:
+	College() : menu(std::move(init())), currTeacher(nullptr), currStudent(nullptr)
+	{}
+
 	auto init() -> Menu<Window<3UL>, Window<3UL>, Window<2UL>, Window<5UL>>;
 
 	bool signInTeacher();
