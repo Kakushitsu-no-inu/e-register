@@ -15,7 +15,7 @@ Teacher::Teacher(std::string_view name, std::string_view surname, std::string_vi
 	password(password)
 {}
 
-void Teacher::setPassword(std::string_view password)
+void Teacher::setPassword(const std::string &password)
 {
 	this->password = password;
 }

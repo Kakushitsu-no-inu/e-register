@@ -26,7 +26,7 @@ public:
 
 	const Teacher& getTeacher(std::string_view surname, std::string_view name) const;
 
-	const Teacher&  signIn(const std::string &password);
+	Teacher* signIn(const std::string& password);
 
 private:
 	std::vector<Teacher> teachers;

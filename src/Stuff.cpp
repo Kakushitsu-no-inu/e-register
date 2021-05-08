@@ -20,15 +20,16 @@ void Stuff::saveToFile()
 void Stuff::loadFromFile()
 {
 	std::ifstream file { Config::STUFF_FILE, std::ios::in };
-	if (file.good())
+	if (!file.good())
 	{
-		std::string surname {}, name {}, subject {}, password {};
-		while (file >> surname >> name >> subject >> password)
-		{
-			teachers.emplace_back(Teacher { surname, name, subject, password });
-		}
+		throw std::runtime_error { "Can't open file!" };
 	}
 
+	std::string name {}, surname {}, subject {}, password {};
+	while (file >> name >> surname >> subject >> password)
+	{
+		teachers.emplace_back(Teacher { name, surname, subject, password });
+	}
 	file.close();
 }
 
@@ -49,13 +50,13 @@ const Teacher& Stuff::getTeacher(std::string_view surname, std::string_view name
 	throw person_error { "not found teacher", __FILE__, __LINE__, __PRETTY_FUNCTION__, "no such teacher in set" };
 }
 
-const Teacher& Stuff::signIn(const std::string& password)
+Teacher* Stuff::signIn(const std::string& password)
 {
 	if (auto it = std::find_if(
 			teachers.begin(), teachers.end(), [&](const Teacher& t) { return t.getPassword() == password; });
 		it != teachers.end())
 	{
-		return *it;
+		return &(*it);
 	}
 	throw person_error { "not found teacher", __FILE__, __LINE__, __PRETTY_FUNCTION__, "no such teacher in set" };
 }

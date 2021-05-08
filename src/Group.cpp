@@ -29,13 +29,13 @@ bool Group::removeStudent(std::string_view name, std::string_view surname)
 	return false;
 }
 
-Student& Group::getStudent(std::string_view name, std::string_view surname) const
+Student *Group::getStudent(std::string_view name, std::string_view surname) const
 {
 	Student toFind { name, surname, this->number };
 
 	if (auto search = students.find(toFind); search != students.end())
 	{
-		return const_cast<Student&>(*search);
+		return const_cast<Student*>(&(*search));
 	}
 	throw person_error { "not found student", __FILE__, __LINE__, __PRETTY_FUNCTION__, "no such student in set" };
 }
