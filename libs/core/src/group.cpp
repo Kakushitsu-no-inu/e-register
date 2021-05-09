@@ -156,3 +156,11 @@ void group::clear() {
   number = 0;
   count  = 0;
 }
+
+std::ostream &operator<<(std::ostream &os, const group &g) {
+  os << "Group: " << g.number << '\n';
+  for (const auto &stud : g.students) {
+    os << stud.get_name() << ' ' << stud.get_surname() << '\n';
+  }
+  return os;
+}

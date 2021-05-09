@@ -58,6 +58,8 @@ public:
 
   void clear();
 
+  friend std::ostream &operator<<(std::ostream &os, const group &g);
+
 private:
   // Компаратор для студентів по їхньому прізвищу та імені в алфавітному порядку
   struct compare {

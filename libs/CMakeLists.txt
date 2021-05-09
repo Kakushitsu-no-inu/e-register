@@ -27,11 +27,12 @@ add_library(core STATIC
 target_include_directories(core PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/core/include>
     ${OPENXLSX_PATH}/include
+    ${FMT_PATH}/include
 )
 
 target_compile_definitions(core PRIVATE
     OPENXLSX_STATIC_DEFINE
 )
 target_link_libraries(core PUBLIC
-    OpenXLSX-static utils ui
+    OpenXLSX-static utils ui fmt::fmt-header-only
 )

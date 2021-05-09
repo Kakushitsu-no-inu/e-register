@@ -1,5 +1,6 @@
 #include "application.h"
-
+#include <fmt/format.h>
+#include <fmt/ostream.h>
 #include <cstddef>
 
 application::application()
@@ -67,16 +68,17 @@ auto application::init() -> menu<stage<3UL>, stage<3UL>, stage<2UL>, stage<5UL>>
                        },
                        "Log Out"});
 
-  auto group_menu =
-    make_window("What to do?", option{[&](menu_base *) { /* group.show(); */ }, "Show Students"},
-                option{[&](menu_base *) { /* setMarkStudent(); */ }, "Set Student's Mark"},
-                option{[&](menu_base *) { /* setAllMarks(); */ }, "Set Students' Marks"},
-                option{[&](menu_base *) { /* changeMark(); */ }, "Change Student's Mark"},
-                option{[&](menu_base *menu) {
-                         m_current_student = nullptr;
-                         menu->switch_window(1);
-                       },
-                       "Return"});
+  auto group_menu = make_window(
+    "What to do?",
+    option{[&](menu_base *) { std::cout << fmt::format("{}\n", m_group); }, "Show Students"},
+    option{[&](menu_base *) { /* setMarkStudent(); */ }, "Set Student's Mark"},
+    option{[&](menu_base *) { /* setAllMarks(); */ }, "Set Students' Marks"},
+    option{[&](menu_base *) { /* changeMark(); */ }, "Change Student's Mark"},
+    option{[&](menu_base *menu) {
+             m_current_student = nullptr;
+             menu->switch_window(1);
+           },
+           "Return"});
 
   /* auto admin_menu = */
   return make_menu(sing_in, teacher_menu, student_menu, group_menu /*, admin_menu */);
