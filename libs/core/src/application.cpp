@@ -136,6 +136,7 @@ bool application::select_group() {
   int number;
   std::cout << "Enter number group: ";
   std::cin >> number;
+  m_group.set_number(number);
   try {
     m_group.load_from_excel();
     return true;

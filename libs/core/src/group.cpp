@@ -68,7 +68,7 @@ void group::load_subject(const std::string &subject) {
   }
 
   auto wks = wbk.worksheet(subject);
-  auto row = wks.rowCount() + 1;
+  // auto row = wks.rowCount() + 1;
   auto col = wks.row(1).cellCount() + 1;
   for (int i{2}; auto &stud : students) {
     for (auto j{3}; j < col; j++) {
@@ -153,7 +153,6 @@ int group::get_number() const { return this->number; }
 
 void group::clear() {
   students.clear();
-  number = 0;
   count  = 0;
 }
 
