@@ -36,3 +36,17 @@ target_compile_definitions(core PRIVATE
 target_link_libraries(core PUBLIC
     OpenXLSX-static utils ui fmt::fmt-header-only
 )
+
+
+find_program(
+    clang_tidy
+    NAMES clang-tidy
+    PATHS /usr/local/opt/llvm/bin/
+)
+
+if (clang_tidy)
+set_target_properties(
+        utils ui core
+        PROPERTIES CXX_CLANG_TIDY ${clang_tidy}
+)
+endif (clang_tidy)
