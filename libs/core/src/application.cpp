@@ -76,9 +76,9 @@ auto application::init() -> menu<stage<4UL>, stage<3UL>, stage<2UL>, stage<5UL>,
   auto group_menu = make_window(
     "What to do?",
     option{[&](menu_base *) { std::cout << fmt::format("{}\n", m_group); }, "Show Students"},
-    option{[&](menu_base *) { /* setMarkStudent(); */ }, "Set Student's Mark"},
-    option{[&](menu_base *) { /* setAllMarks(); */ }, "Set Students' Marks"},
-    option{[&](menu_base *) { /* changeMark(); */ }, "Change Student's Mark"},
+    option{[&](menu_base *) { set_mark_student(); }, "Set Student's Mark"},
+    option{[&](menu_base *) { set_all_marks(); }, "Set Students' Marks"},
+    option{[&](menu_base *) { change_mark(); }, "Change Student's Mark"},
     option{[&](menu_base *menu) {
              m_current_student = nullptr;
              menu->switch_window(1);
@@ -91,6 +91,12 @@ auto application::init() -> menu<stage<4UL>, stage<3UL>, stage<2UL>, stage<5UL>,
                 option{[&](menu_base *) { quit(); }, "Exit"});
   return make_menu(sing_in, teacher_menu, student_menu, group_menu, admin_menu);
 }
+
+void application::set_mark_student() {}
+
+void application::set_all_marks() {}
+
+void application::change_mark() {}
 
 void application::add_group() {
   int   number;
@@ -136,6 +142,7 @@ bool application::select_group() {
   int number;
   std::cout << "Enter number group: ";
   std::cin >> number;
+  m_group.clear();
   m_group.set_number(number);
   try {
     m_group.load_from_excel();

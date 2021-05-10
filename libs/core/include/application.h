@@ -28,6 +28,12 @@ private:
   void add_teacher();
   void add_group();
 
+  void set_mark_student();
+
+  void set_all_marks();
+
+  void change_mark();
+
   void quit();
 
   void show_mark(const student &stud);

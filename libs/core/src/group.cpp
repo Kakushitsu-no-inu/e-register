@@ -38,8 +38,6 @@ student *group::get_student(std::string_view name, std::string_view surname) con
 }
 
 void group::load_from_excel() {
-  clear();
-
   using namespace OpenXLSX;
   XLDocument doc;
 
@@ -154,6 +152,7 @@ int group::get_number() const { return this->number; }
 void group::clear() {
   students.clear();
   count  = 0;
+  number = 0;
 }
 
 std::ostream &operator<<(std::ostream &os, const group &g) {
