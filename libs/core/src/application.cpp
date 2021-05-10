@@ -21,31 +21,36 @@ void application::run() {
   }
 }
 
-auto application::init() -> menu<stage<3UL>, stage<3UL>, stage<2UL>, stage<5UL>> {
-  m_stuff.load_from_file();
+auto application::init() -> menu<stage<4UL>, stage<3UL>, stage<2UL>, stage<5UL>, stage<3UL>> {
 
-  auto sing_in = make_window(
-    "Sign In",
-    option{[&](menu_base *menu) {
-             if (sign_in_teacher()) {
-               std::cout << "\nYou are sign in as "
-                         << m_current_teacher->get_name() + " " + m_current_teacher->get_surname() +
-                              " [" + m_current_teacher->get_subject() + "]\n";
-               menu->switch_window(1);
-             } else {
-               std::cout << "\nBad password!\n";
-             }
-           },
-           "as Teacher"},
-    option{[&](menu_base *menu) {
-             if (sign_in_stud()) {
-               menu->switch_window(2);
-             }
-           },
-           "as Student"},
-    option{[&](menu_base *) { quit(); }, "Exit"}
-    /*option([&](menu_base *menu) { if (signInAdmin()) { menu->switch_window(4); } }) */
-  );
+  try {
+    m_stuff.load_from_file();
+  } catch (const std::exception &err) {
+    std::cerr << err.what() << '\n';
+    std::cerr << "First Create Data Base of Teachers!!!\n";
+  }
+
+  auto sing_in = make_window("Sign In",
+                             option{[&](menu_base *menu) {
+                                      if (sign_in_teacher()) {
+                                        std::cout << "\nYou are sign in as "
+                                                  << m_current_teacher->get_name() + " " +
+                                                       m_current_teacher->get_surname() + " [" +
+                                                       m_current_teacher->get_subject() + "]\n";
+                                        menu->switch_window(1);
+                                      } else {
+                                        std::cout << "\nBad password!\n";
+                                      }
+                                    },
+                                    "as Teacher"},
+                             option{[&](menu_base *menu) {
+                                      if (sign_in_stud()) {
+                                        menu->switch_window(2);
+                                      }
+                                    },
+                                    "as Student"},
+                             option{[&](menu_base *menu) { menu->switch_window(4); }, "as Admin"},
+                             option{[&](menu_base *) { quit(); }, "Exit"});
 
   auto student_menu = make_window(
     "Student Options", option{[&](menu_base *) { show_mark(*m_current_student); }, "Show Marks"},
@@ -80,8 +85,40 @@ auto application::init() -> menu<stage<3UL>, stage<3UL>, stage<2UL>, stage<5UL>>
            },
            "Return"});
 
-  /* auto admin_menu = */
-  return make_menu(sing_in, teacher_menu, student_menu, group_menu /*, admin_menu */);
+  auto admin_menu =
+    make_window("Admin Options", option{[&](menu_base *) { add_teacher(); }, "Add Teacher"},
+                option{[&](menu_base *) { add_group(); }, "Add Group"},
+                option{[&](menu_base *) { quit(); }, "Exit"});
+  return make_menu(sing_in, teacher_menu, student_menu, group_menu, admin_menu);
+}
+
+void application::add_group() {
+  int   number;
+  group g;
+
+  std::cout << "Enter group's number: ";
+  std::cin >> number;
+
+  g.set_number(number);
+
+  std::string name, surname;
+
+  std::cout << "Add student <name> <surname>. Press 0 to end input.\n";
+  while (true) {
+    std::cin >> name >> surname;
+    if (name == "0" || surname == "0")
+      break;
+    g.add_student(student{name, surname});
+  }
+
+  g.save_to_excel();
+}
+
+void application::add_teacher() {
+  teacher t;
+  std::cout << "Enter teacher info <name> <surname> <subject> <password>\n";
+  std::cin >> t;
+  m_stuff.add_teacher(t);
 }
 
 void application::change_password() {
@@ -99,15 +136,12 @@ bool application::select_group() {
   int number;
   std::cout << "Enter number group: ";
   std::cin >> number;
-  if (std::cin.bad()) {
+  try {
+    m_group.load_from_excel();
+    return true;
+  } catch (std::exception &err) {
+    std::cerr << err.what() << '\n';
     return false;
-  } else {
-    try {
-      m_group.load_from_excel();
-      return true;
-    } catch (...) {
-      return false;
-    }
   }
 }
 

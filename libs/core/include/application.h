@@ -17,13 +17,16 @@ public:
 private:
   application();
 
-  auto init() -> menu<stage<3UL>, stage<3UL>, stage<2UL>, stage<5UL>>;
+  auto init() -> menu<stage<4UL>, stage<3UL>, stage<2UL>, stage<5UL>, stage<3UL>>;
 
   bool sign_in_teacher();
   bool sign_in_stud();
 
   bool select_group();
   void change_password();
+
+  void add_teacher();
+  void add_group();
 
   void quit();
 
@@ -35,5 +38,5 @@ private:
   teacher *m_current_teacher{};
   student *m_current_student{};
 
-  menu<stage<3UL>, stage<3UL>, stage<2UL>, stage<5UL>> m_menu;
+  menu<stage<4ul>, stage<3ul>, stage<2ul>, stage<5ul>, stage<3ul>> m_menu;
 };

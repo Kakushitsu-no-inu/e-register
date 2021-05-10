@@ -1,5 +1,7 @@
 #pragma once
 #include "person.h"
+ 
+#include <istream>
 
 class student;
 
@@ -27,6 +29,8 @@ public:
   const std::string &get_password() const;
 
   void set_mark(student &stud, std::string_view value) const;
+
+  friend std::istream &operator>>(std::istream &is, teacher &t);
 
 private:
   std::string subject{};

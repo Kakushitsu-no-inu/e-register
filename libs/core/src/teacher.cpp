@@ -25,3 +25,10 @@ void teacher::set_mark(student &stud, std::string_view value) const {
 
   stud.add_mark(this->subject, mark{value, this->subject, *date});
 }
+
+std::istream &operator>>(std::istream &is, teacher &t) {
+  is >> t.name >> t.surname >> t.subject;
+  is.ignore();
+  std::getline(is, t.password);
+  return is;
+}
