@@ -26,8 +26,6 @@ add_library(core STATIC
 )
 target_include_directories(core PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/core/include>
-    ${OPENXLSX_PATH}/include
-    ${FMT_PATH}/include
 )
 
 target_compile_definitions(core PRIVATE
@@ -41,7 +39,7 @@ target_link_libraries(core PUBLIC
 find_program(
     clang_tidy
     NAMES clang-tidy
-    PATHS /usr/local/opt/llvm/bin/
+    PATHS /usr/bin/
 )
 
 if (clang_tidy)

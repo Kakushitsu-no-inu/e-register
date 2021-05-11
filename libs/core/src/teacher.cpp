@@ -19,7 +19,7 @@ const std::string &teacher::get_subject() const { return subject; }
 
 const std::string &teacher::get_password() const { return password; }
 
-void teacher::set_mark(student &stud, std::string_view value) const {
+void teacher::set_mark(const student &stud, std::string_view value) const {
   std::time_t now{std::time(nullptr)};
   std::tm *   date{std::localtime(&now)};
 

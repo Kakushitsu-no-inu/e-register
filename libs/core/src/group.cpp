@@ -162,3 +162,5 @@ std::ostream &operator<<(std::ostream &os, const group &g) {
   }
   return os;
 }
+
+group::student_set &group::get_students() { return students; }

@@ -92,9 +92,43 @@ auto application::init() -> menu<stage<4UL>, stage<3UL>, stage<2UL>, stage<5UL>,
   return make_menu(sing_in, teacher_menu, student_menu, group_menu, admin_menu);
 }
 
-void application::set_mark_student() {}
+void application::set_mark_student() {
+  try {
+    m_group.load_subject(m_current_teacher->get_subject());
+  } catch (...) {
+    std::cerr << "Not found DataBase for your subject! Create first\n";
+    return;
+  }
 
-void application::set_all_marks() {}
+  std::string name, surname;
+  std::cout << "Student's name and surname: ";
+  std::cin >> name >> surname;
+
+  auto &stud = *m_group.get_student(name, surname);
+
+  std::string value;
+  std::cout << "Enter mark: ";
+  std::cin >> value;
+  m_current_teacher->set_mark(stud, value);
+}
+
+void application::set_all_marks() {
+  try {
+    m_group.load_subject(m_current_teacher->get_subject());
+  } catch (...) {
+    std::cerr << "Not found DataBase for your subject! Create first\n";
+    return;
+  }
+
+  for (auto &students = m_group.get_students(); auto &stud : students) {
+    std::string value;
+    std::cout << "Enter mark for " << stud.get_name() << " " << stud.get_surname() << ": ";
+    std::cin >> value;
+    m_current_teacher->set_mark(stud, value);
+  }
+
+  m_group.update_subject(m_current_teacher->get_subject());
+}
 
 void application::change_mark() {}
 

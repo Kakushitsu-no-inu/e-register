@@ -3,6 +3,22 @@
 #include <set>
 
 class group {
+  // Компаратор для студентів по їхньому прізвищу та імені в алфавітному порядку
+  struct compare {
+    bool operator()(const student &stud1, const student &stud2) const {
+      return stud1.get_surname() < stud2.get_surname() ||
+             (stud1.get_surname() == stud2.get_surname() && stud1.get_name() < stud2.get_name());
+    }
+  };
+
+  /// Множина студентів
+  using student_set = std::set<student, compare>;
+  student_set students{};
+  /// Номер групи
+  int number{};
+  /// К-сть студентів
+  int count{};
+
 public:
   group() = default;
 
@@ -60,20 +76,7 @@ public:
 
   friend std::ostream &operator<<(std::ostream &os, const group &g);
 
-private:
-  // Компаратор для студентів по їхньому прізвищу та імені в алфавітному порядку
-  struct compare {
-    bool operator()(const student &stud1, const student &stud2) const {
-      return stud1.get_surname() < stud2.get_surname() ||
-             (stud1.get_surname() == stud2.get_surname() && stud1.get_name() < stud2.get_name());
-    }
-  };
-
-  /// Множина студентів
-  // using student_set = std::set<student, compare>;
-  std::set<student, compare> students{};
-  /// Номер групи
-  int number{};
-  /// К-сть студентів
-  int count{};
+  student_set &get_students();
 };
+
+
