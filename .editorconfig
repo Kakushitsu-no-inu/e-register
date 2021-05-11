@@ -1,0 +1,21 @@
+root = true
+
+[*]
+end_of_line = lf
+insert_final_newline = true
+
+[*.cpp]
+indent_size = 2
+indent_style = space
+
+[*.h]
+indent_size = 2
+indent_style = space
+
+[*.make]
+indent_size = 4
+indent_style = space
+
+[*.txt]
+indent_size = 4
+indent_style = space
