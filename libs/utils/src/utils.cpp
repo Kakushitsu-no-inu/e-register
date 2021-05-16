@@ -28,7 +28,8 @@ void pause_() {
 #ifdef _WIN32
   system("pause");
 #elif __linux__
-  pause();
+  std::cout << "Press Enter to continue...";
+  getchar();
 #endif
 }
 
