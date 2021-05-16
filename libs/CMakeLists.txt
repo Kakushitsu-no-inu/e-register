@@ -36,15 +36,15 @@ target_link_libraries(core PUBLIC
 )
 
 
-# find_program(
-#     clang_tidy
-#     NAMES clang-tidy
-#     PATHS /usr/bin/
-# )
+find_program(
+    clang_tidy
+    NAMES clang-tidy
+    PATHS /usr/bin/
+)
 
-# if (clang_tidy)
-# set_target_properties(
-#         utils ui core
-#         PROPERTIES CXX_CLANG_TIDY ${clang_tidy}
-# )
-# endif (clang_tidy)
+if (clang_tidy)
+set_target_properties(
+        utils ui core
+        PROPERTIES CXX_CLANG_TIDY ${clang_tidy}
+)
+endif (clang_tidy)

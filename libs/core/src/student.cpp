@@ -13,7 +13,8 @@ void student::set_group(const int group) { this->group = group; }
 const int student::get_group() const { return group; }
 
 void student::add_mark(const std::string &subject, const mark &mark) const {
-  marks[subject].emplace_back(mark);
+  if (marks[subject].back().time_to_string() != mark.time_to_string())
+    marks[subject].emplace_back(mark);
 }
 
 const mark &student::get_last_mark(const std::string &subject) const {

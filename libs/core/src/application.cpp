@@ -13,8 +13,6 @@ application &application::get_instance() {
 
 void application::run() {
   while (true) {
-    pause_();
-    cls();
     m_menu.print();
     size_t choice;
     std::cin >> choice;

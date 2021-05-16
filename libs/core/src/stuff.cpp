@@ -11,7 +11,7 @@ void stuff::save_to_file() {
   std::ofstream file{config::STUFF_FILE, std::ios::out};
   if (file.good()) {
     std::for_each(teachers.begin(), teachers.end(), [&file](const teacher &teach) {
-      file << teach.get_surname() << ' ' << teach.get_name() << ' ' << teach.get_subject() << ' '
+      file << teach.get_name() << ' ' << teach.get_surname() << ' ' << teach.get_subject() << ' '
            << teach.get_password() << '\n';
     });
   }
