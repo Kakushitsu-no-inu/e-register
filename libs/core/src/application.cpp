@@ -13,11 +13,14 @@ application &application::get_instance() {
 
 void application::run() {
   while (true) {
+    pause_();
+    cls();
     m_menu.print();
     size_t choice;
     std::cin >> choice;
     m_menu.handle(choice - 1);
     std::cout << '\n';
+    
   }
 }
 
@@ -99,7 +102,7 @@ void application::set_mark_student() {
     std::cerr << "Not found DataBase for your subject! Create first\n";
     return;
   }
-
+  std::cout << fmt::format("{}\n", m_group);
   std::string name, surname;
   std::cout << "Student's name and surname: ";
   std::cin >> name >> surname;
@@ -116,8 +119,7 @@ void application::set_all_marks() {
   try {
     m_group.load_subject(m_current_teacher->get_subject());
   } catch (...) {
-    std::cerr << "Not found DataBase for your subject! Create first\n";
-    return;
+    std::cerr << "Not found DataBase for your subject! Creating... \n";
   }
 
   for (auto &students = m_group.get_students(); auto &stud : students) {
