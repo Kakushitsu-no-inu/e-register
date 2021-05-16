@@ -4,6 +4,7 @@
 #include <time.h>
 #include <sstream>
 #include <windows.h>
+#include <iomanip>
 #elif __linux__
 #include <unistd.h>
 #include <termios.h>
