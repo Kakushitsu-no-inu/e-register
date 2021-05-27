@@ -22,7 +22,7 @@ void application::run() {
   }
 }
 
-auto application::init() -> menu<stage<4UL>, stage<3UL>, stage<2UL>, stage<5UL>, stage<3UL>> {
+auto application::init() -> menu<stage<4UL>, stage<3UL>, stage<2UL>, stage<4UL>, stage<3UL>> {
 
   try {
     m_stuff.load_from_file();
@@ -79,8 +79,14 @@ auto application::init() -> menu<stage<4UL>, stage<3UL>, stage<2UL>, stage<5UL>,
     option{[&](menu_base *) { std::cout << fmt::format("{}\n", m_group); }, "Show Students"},
     option{[&](menu_base *) { set_mark_student(); }, "Set Student's Mark"},
     option{[&](menu_base *) { set_all_marks(); }, "Set Students' Marks"},
-    option{[&](menu_base *) { change_mark(); }, "Change Student's Mark"},
     option{[&](menu_base *menu) {
+             auto &cache = cache_group.get_students();
+             for (auto &students = m_group.get_students(); auto &stud : students) {
+               auto It = cache.find(stud);
+               if(It == cache.end())
+                 m_current_teacher->set_mark(stud, " ");
+             }
+             m_group.update_subject(m_current_teacher->get_subject());
              m_current_student = nullptr;
              menu->switch_window(1);
            },
@@ -94,12 +100,7 @@ auto application::init() -> menu<stage<4UL>, stage<3UL>, stage<2UL>, stage<5UL>,
 }
 
 void application::set_mark_student() {
-  try {
-    m_group.load_subject(m_current_teacher->get_subject());
-  } catch (...) {
-    std::cerr << "Not found DataBase for your subject! Create first\n";
-    return;
-  }
+  
   std::cout << fmt::format("{}\n", m_group);
   std::string name, surname;
   std::cout << "Student's name and surname: ";
@@ -111,14 +112,15 @@ void application::set_mark_student() {
   std::cout << "Enter mark: ";
   std::cin >> value;
   m_current_teacher->set_mark(stud, value);
+  cache_group.add_student(student{name,surname});
 }
 
 void application::set_all_marks() {
-  try {
-    m_group.load_subject(m_current_teacher->get_subject());
-  } catch (...) {
-    std::cerr << "Not found DataBase for your subject! Creating... \n";
-  }
+  // try {
+  //   m_group.load_subject(m_current_teacher->get_subject());
+  // } catch (...) {
+  //   std::cerr << "Not found DataBase for your subject! Creating... \n";
+  // }
 
   for (auto &students = m_group.get_students(); auto &stud : students) {
     std::string value;
@@ -127,10 +129,10 @@ void application::set_all_marks() {
     m_current_teacher->set_mark(stud, value);
   }
 
-  m_group.update_subject(m_current_teacher->get_subject());
+  // m_group.update_subject(m_current_teacher->get_subject());
 }
 
-void application::change_mark() {}
+
 
 void application::add_group() {
   int   number;
@@ -177,9 +179,12 @@ bool application::select_group() {
   std::cout << "Enter number group: ";
   std::cin >> number;
   m_group.clear();
+  cache_group.clear();
   m_group.set_number(number);
+  cache_group.set_number(number);
   try {
     m_group.load_from_excel();
+    m_group.load_subject(m_current_teacher->get_subject());
     return true;
   } catch (std::exception &err) {
     std::cerr << err.what() << '\n';
