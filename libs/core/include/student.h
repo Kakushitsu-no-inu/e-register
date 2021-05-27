@@ -12,6 +12,7 @@ struct mark;
  *
  */
 class student : public person {
+  using mark_map = std::map<std::string, std::vector<mark>>;
 public:
   student() = default;
 
@@ -49,9 +50,10 @@ public:
    */
   const mark &get_last_mark(const std::string &subject) const;
 
+  mark_map &get_marks();
+
 private:
   int group{};
 
-  using mark_map = std::map<std::string, std::vector<mark>>;
   mutable mark_map marks{};
 };

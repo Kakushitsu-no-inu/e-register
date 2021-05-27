@@ -35,7 +35,7 @@ private:
 
   void quit();
 
-  void show_mark(const student &stud);
+  void show_mark();
 
   stuff m_stuff;
   group m_group;

@@ -54,7 +54,7 @@ auto application::init() -> menu<stage<4UL>, stage<3UL>, stage<2UL>, stage<4UL>,
                              option{[&](menu_base *) { quit(); }, "Exit"});
 
   auto student_menu = make_window(
-    "Student Options", option{[&](menu_base *) { show_mark(*m_current_student); }, "Show Marks"},
+    "Student Options", option{[&](menu_base *) { show_mark(); }, "Show Marks"},
     option{[&](menu_base *) { quit(); }, "Exit"});
 
   auto teacher_menu =
@@ -220,4 +220,12 @@ bool application::sign_in_teacher() {
   }
 }
 
-void application::show_mark(student const &) {}
+void application::show_mark() {
+    for (auto &map = m_current_student->get_marks(); auto &[subject, marks] : map) {
+        std::cout << subject << ' ';
+        for (auto &mark : marks) {
+            std::cout << mark.value << ' ';
+        }
+        std::cout << std::endl;
+    }
+}
