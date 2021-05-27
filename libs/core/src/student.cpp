@@ -22,3 +22,7 @@ void student::add_mark(const std::string &subject, const mark &mark) const {
 const mark &student::get_last_mark(const std::string &subject) const {
   return *(marks.at(subject).end() - 1);
 }
+
+student::mark_map & student::get_marks() {
+  return marks;
+}

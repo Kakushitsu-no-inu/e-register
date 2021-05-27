@@ -34,13 +34,13 @@ void stuff::load_from_file() {
 
 void stuff::add_teacher(const teacher &new_teacher) { teachers.emplace_back(new_teacher); }
 
-const teacher &stuff::get_teacher(std::string_view surname, std::string_view name) const {
+teacher *stuff::get_teacher(std::string_view surname, std::string_view name) {
   if (auto find = std::find_if(teachers.begin(), teachers.end(),
                                [&](const teacher &teach) {
                                  return teach.get_surname() == surname && teach.get_name() == name;
                                });
       find != teachers.end()) {
-    return *find;
+    return &(*find);
   }
   throw person_error{"not found teacher"};
 }

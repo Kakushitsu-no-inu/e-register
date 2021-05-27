@@ -54,7 +54,7 @@ auto application::init() -> menu<stage<4UL>, stage<3UL>, stage<2UL>, stage<4UL>,
                              option{[&](menu_base *) { quit(); }, "Exit"});
 
   auto student_menu = make_window(
-    "Student Options", option{[&](menu_base *) { show_mark(*m_current_student); }, "Show Marks"},
+    "Student Options", option{[&](menu_base *) { show_mark(); }, "Show Marks"},
     option{[&](menu_base *) { quit(); }, "Exit"});
 
   auto teacher_menu =
@@ -183,6 +183,13 @@ bool application::select_group() {
   m_group.set_number(number);
   cache_group.set_number(number);
   try {
+    if(!m_current_teacher)
+    {
+      std::cout << "Enter teacher's name and surname ";
+      std::string name, surname;
+      std::cin >> name >> surname;
+      m_current_teacher = m_stuff.get_teacher(surname, name);
+    }
     m_group.load_from_excel();
     m_group.load_subject(m_current_teacher->get_subject());
     return true;
@@ -220,4 +227,17 @@ bool application::sign_in_teacher() {
   }
 }
 
-void application::show_mark(student const &) {}
+void application::show_mark() {
+    for (auto &map = m_current_student->get_marks(); auto &[subject, marks] : map) {
+        std::cout << subject << '\n';
+        for (auto &mark : marks) {
+            std::cout << mark.time_to_string() << ' ';
+        }
+        std::cout << std::endl;
+        for (auto &mark : marks) {
+          std::cout << fmt::format("{: ^11}", mark.value);
+        }
+    }
+}
+
+    
