@@ -23,7 +23,7 @@ public:
 
   // void deleteTeacher(std::string_view surname, std::string_view name);
 
-  const teacher &get_teacher(std::string_view surname, std::string_view name) const;
+ teacher *get_teacher(std::string_view surname, std::string_view name);
 
   teacher *sign_in(const std::string &password);
 

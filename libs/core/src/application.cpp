@@ -183,6 +183,13 @@ bool application::select_group() {
   m_group.set_number(number);
   cache_group.set_number(number);
   try {
+    if(!m_current_teacher)
+    {
+      std::cout << "Enter teacher's name and surname ";
+      std::string name, surname;
+      std::cin >> name >> surname;
+      m_current_teacher = m_stuff.get_teacher(surname, name);
+    }
     m_group.load_from_excel();
     m_group.load_subject(m_current_teacher->get_subject());
     return true;
@@ -222,10 +229,15 @@ bool application::sign_in_teacher() {
 
 void application::show_mark() {
     for (auto &map = m_current_student->get_marks(); auto &[subject, marks] : map) {
-        std::cout << subject << ' ';
+        std::cout << subject << '\n';
         for (auto &mark : marks) {
-            std::cout << mark.value << ' ';
+            std::cout << mark.time_to_string() << ' ';
         }
         std::cout << std::endl;
+        for (auto &mark : marks) {
+          std::cout << fmt::format("{: ^11}", mark.value);
+        }
     }
 }
+
+    
