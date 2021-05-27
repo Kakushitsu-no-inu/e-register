@@ -15,6 +15,7 @@ public:
   void run();
 
 private:
+
   application();
 
   auto init() -> menu<stage<4UL>, stage<3UL>, stage<2UL>, stage<4UL>, stage<3UL>>;
@@ -38,6 +39,7 @@ private:
 
   stuff m_stuff;
   group m_group;
+  group cache_group;
 
   teacher *m_current_teacher{};
   student *m_current_student{};
