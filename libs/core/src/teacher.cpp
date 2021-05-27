@@ -13,6 +13,13 @@ teacher::teacher(std::string_view name, std::string_view surname, std::string_vi
                  std::string password)
   : person(name, surname), subject(subject), password(password) {}
 
+teacher::teacher(const teacher &other) { 
+  name = other.get_name();
+  surname = other.get_surname();
+  password = other.get_password();
+  subject = other.get_subject();
+}
+
 void teacher::set_password(const std::string &password) { this->password = password; }
 
 const std::string &teacher::get_subject() const { return subject; }

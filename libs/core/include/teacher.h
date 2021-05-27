@@ -22,6 +22,8 @@ public:
   teacher(std::string_view name, std::string_view surname, std::string_view subject,
           std::string password);
 
+  teacher(const teacher& other);
+
   void set_password(const std::string &password);
 
   const std::string &get_subject() const;
