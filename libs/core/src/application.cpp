@@ -22,7 +22,7 @@ void application::run() {
   }
 }
 
-auto application::init() -> menu<stage<4UL>, stage<3UL>, stage<2UL>, stage<5UL>, stage<3UL>> {
+auto application::init() -> menu<stage<4UL>, stage<3UL>, stage<2UL>, stage<4UL>, stage<3UL>> {
 
   try {
     m_stuff.load_from_file();
@@ -79,7 +79,6 @@ auto application::init() -> menu<stage<4UL>, stage<3UL>, stage<2UL>, stage<5UL>,
     option{[&](menu_base *) { std::cout << fmt::format("{}\n", m_group); }, "Show Students"},
     option{[&](menu_base *) { set_mark_student(); }, "Set Student's Mark"},
     option{[&](menu_base *) { set_all_marks(); }, "Set Students' Marks"},
-    option{[&](menu_base *) { change_mark(); }, "Change Student's Mark"},
     option{[&](menu_base *menu) {
              m_current_student = nullptr;
              menu->switch_window(1);
@@ -130,7 +129,7 @@ void application::set_all_marks() {
   m_group.update_subject(m_current_teacher->get_subject());
 }
 
-void application::change_mark() {}
+
 
 void application::add_group() {
   int   number;
