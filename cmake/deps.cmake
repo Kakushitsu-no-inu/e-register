@@ -1,9 +1,14 @@
 include(FetchContent)
 
+set(BUILD_TESTS OFF)
+set(BUILD_SAMPLES OFF)
+set(CREATE_DOCS OFF)
+set(BUILD_BENCHMARKS OFF)
+
 FetchContent_Declare(
     OpenXLSX
     GIT_REPOSITORY https://github.com/troldal/OpenXLSX.git
-    GIT_TAG master
+    GIT_TAG "master" 
 )
 FetchContent_MakeAvailable(OpenXLSX)
 
