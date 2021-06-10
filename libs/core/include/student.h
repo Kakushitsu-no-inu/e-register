@@ -52,6 +52,8 @@ public:
 
   mark_map &get_marks();
 
+  double average(const std::string &subject) const;
+
 private:
   int group{};
 

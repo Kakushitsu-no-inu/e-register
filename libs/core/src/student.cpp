@@ -1,5 +1,6 @@
 #include "student.h"
 #include "mark.h"
+#include <numeric>
 
 student::student(std::string_view name) : person{name} {}
 
@@ -25,4 +26,20 @@ const mark &student::get_last_mark(const std::string &subject) const {
 
 student::mark_map & student::get_marks() {
   return marks;
+}
+
+double student::average(const std::string& subject) const {
+  auto &vec = marks[subject];
+  bool is_number{};
+
+  if (vec[0].value.find_first_of("0123456789") != std::string::npos)
+    is_number = true;
+
+  auto avg = std::accumulate(vec.begin(), vec.end(), 0.0, [&](double sum, const mark &m) {
+    if (is_number)
+      return sum + std::stof(m.value);
+    return sum;
+  });
+
+  return avg / vec.size();
 }
