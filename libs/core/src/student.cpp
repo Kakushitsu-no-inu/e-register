@@ -14,7 +14,7 @@ void student::set_group(const int group) { this->group = group; }
 const int student::get_group() const { return group; }
 
 void student::add_mark(const std::string &subject, const mark &mark) const {
-  if(marks[subject].empty())
+  if (marks[subject].empty())
     marks[subject].emplace_back(mark);
   else if (marks[subject].back().time_to_string() != mark.time_to_string())
     marks[subject].emplace_back(mark);
@@ -24,13 +24,21 @@ const mark &student::get_last_mark(const std::string &subject) const {
   return *(marks.at(subject).end() - 1);
 }
 
-student::mark_map & student::get_marks() {
-  return marks;
+student::mark_map &student::get_marks() { return marks; }
+
+void student::change_mark(const std::string &subject, const std::string &time, const std::string &value) {
+  auto vec = marks[subject];
+  auto it = std::find_if(vec.begin(), vec.end(), [&](const mark &m) {
+    return m.time_to_string() == time;
+  });
+
+  if (it != std::end(vec))
+    it->value = value;
 }
 
-double student::average(const std::string& subject) const {
+double student::average(const std::string &subject) const {
   auto &vec = marks[subject];
-  bool is_number{};
+  bool  is_number{};
 
   if (vec[0].value.find_first_of("0123456789") != std::string::npos)
     is_number = true;

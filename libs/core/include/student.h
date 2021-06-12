@@ -54,6 +54,8 @@ public:
 
   double average(const std::string &subject) const;
 
+  void change_mark(const std::string &subject, const std::string &time, const std::string &value);
+
 private:
   int group{};
 
