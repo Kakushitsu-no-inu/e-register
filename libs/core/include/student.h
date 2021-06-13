@@ -13,14 +13,17 @@ struct mark;
  */
 class student : public person {
   using mark_map = std::map<std::string, std::vector<mark>>;
+
 public:
-  student() = default;
+  static size_t count;
 
   student(std::string_view name);
 
   student(std::string_view name, std::string_view surname);
 
   student(std::string_view name, std::string_view surname, int group);
+
+  ~student() override { count--; }
 
   /**
    * @brief Встановлює студенту групу
@@ -36,12 +39,16 @@ public:
    */
   const int get_group() const;
 
+  size_t get_id() const { return id; }
+
   /**
    * @brief
    *
    * @param mark
    */
   void add_mark(const std::string &subject, const mark &mark) const;
+
+  const mark& get_mark(const std::string &subject, size_t id) const;
 
   /**
    * @brief Функція повертає останню оцінку з предмету
@@ -57,7 +64,8 @@ public:
   void change_mark(const std::string &subject, const std::string &time, const std::string &value);
 
 private:
-  int group{};
+  int    group{};
+  size_t id{};
 
   mutable mark_map marks{};
 };

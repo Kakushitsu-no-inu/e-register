@@ -68,6 +68,11 @@
         "format": "cpp",
         "bitset": "cpp",
         "charconv": "cpp",
-        "regex": "cpp"
+        "regex": "cpp",
+        "hash_map": "cpp",
+        "unordered_set": "cpp",
+        "optional": "cpp",
+        "source_location": "cpp",
+        "valarray": "cpp"
     }
 }

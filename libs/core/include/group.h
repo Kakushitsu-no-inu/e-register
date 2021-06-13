@@ -11,6 +11,11 @@ class group {
     }
   };
 
+  struct position {
+    size_t row{}; // student's position
+    size_t col{}; // date's position
+  };
+
   /// Множина студентів
   using student_set = std::set<student, compare>;
   student_set students{};
@@ -68,15 +73,19 @@ public:
    */
   void update_subject(const std::string &subject);
 
+  void change_subject(const std::string &subject, std::vector<position> &&v);
+
   void set_number(int number) { this->number = number; }
 
   int get_number() const;
+
+  void load_all();
 
   void clear();
 
   friend std::ostream &operator<<(std::ostream &os, const group &g);
 
   student_set &get_students();
+
+  const student &get_student(size_t id);
 };
-
-

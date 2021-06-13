@@ -37,6 +37,19 @@ student *group::get_student(std::string_view name, std::string_view surname) con
   throw person_error{"not found student"};
 }
 
+void group::load_all() {
+  using namespace OpenXLSX;
+  XLDocument doc;
+
+  doc.open(std::to_string(number) + config::EXC_FILE);
+  auto wbk   = doc.workbook();
+  auto count = wbk.sheetCount();
+  for (size_t index{2}; index < count; + index) {
+    auto sheet = wbk.sheet(index);
+    load_subject(sheet.name());
+  }
+}
+
 void group::load_from_excel() {
   using namespace OpenXLSX;
   XLDocument doc;
@@ -51,6 +64,35 @@ void group::load_from_excel() {
     this->add_student(student{name.get<std::string>(), surname.get<std::string>(), number});
   }
 
+  doc.close();
+}
+
+const student &group::get_student(size_t id) {
+  auto it = std::find_if(std::begin(students), std::end(students),
+                         [&](const student &stud) { return stud.get_id() == id; });
+  if (it != std::end(students))
+    return *it;
+  throw person_error{"can't found student"};
+}
+
+void group::change_subject(const std::string &subject, std::vector<position> &&v) {
+  using namespace OpenXLSX;
+  XLDocument doc;
+  doc.open(std::to_string(number) + config::EXC_FILE);
+
+  auto wbk = doc.workbook();
+  if (!wbk.worksheetExists(subject)) {
+    doc.close();
+    return;
+  }
+
+  auto wks = wbk.worksheet(subject);
+  for (auto &&pos : v) {
+    wks.cell(XLCellReference(pos.row, pos.col)).value() =
+      get_student(pos.row - 1).get_mark(subject, pos.col - 2).value;
+  }
+
+  doc.save();
   doc.close();
 }
 

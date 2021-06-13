@@ -17,6 +17,8 @@ public:
 
   person(std::string_view name, std::string_view surname);
 
+  virtual ~person() = default;
+
   /**
    * @brief Повертає ім'я людини
    *

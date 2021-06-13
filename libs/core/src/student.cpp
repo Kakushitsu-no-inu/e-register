@@ -2,12 +2,26 @@
 #include "mark.h"
 #include <numeric>
 
-student::student(std::string_view name) : person{name} {}
+size_t student::count{};
 
-student::student(std::string_view name, std::string_view surname) : person{name, surname} {}
+student::student(std::string_view name) : person{name} { id = count++; }
+
+student::student(std::string_view name, std::string_view surname) : person{name, surname} {
+  id = count++;
+}
 
 student::student(std::string_view name, std::string_view surname, int group)
-  : person{name, surname}, group{group} {}
+  : person{name, surname}, group{group} {
+  id = count++;
+}
+
+const mark &student::get_mark(const std::string &subject, size_t id) const {
+  auto &v  = marks[subject];
+  auto  it = std::find_if(v.begin(), v.end(), [&](const mark &m) { return m.id == id; });
+  if (it != std::end(v))
+    return *it;
+  throw person_error{"not found mark"};
+}
 
 void student::set_group(const int group) { this->group = group; }
 
@@ -26,11 +40,11 @@ const mark &student::get_last_mark(const std::string &subject) const {
 
 student::mark_map &student::get_marks() { return marks; }
 
-void student::change_mark(const std::string &subject, const std::string &time, const std::string &value) {
+void student::change_mark(const std::string &subject, const std::string &time,
+                          const std::string &value) {
   auto vec = marks[subject];
-  auto it = std::find_if(vec.begin(), vec.end(), [&](const mark &m) {
-    return m.time_to_string() == time;
-  });
+  auto it =
+    std::find_if(vec.begin(), vec.end(), [&](const mark &m) { return m.time_to_string() == time; });
 
   if (it != std::end(vec))
     it->value = value;

@@ -1,6 +1,6 @@
 #pragma once
 #include "person.h"
- 
+
 #include <istream>
 
 class student;
@@ -22,7 +22,9 @@ public:
   teacher(std::string_view name, std::string_view surname, std::string_view subject,
           std::string password);
 
-  teacher(const teacher& other);
+  teacher(const teacher &other);
+
+  ~teacher() override {}
 
   void set_password(const std::string &password);
 

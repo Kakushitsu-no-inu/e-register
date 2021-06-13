@@ -11,6 +11,9 @@ struct mark {
   std::string value{"0"};
   std::string subject{};
   std::tm     date{};
+  size_t id{};
+
+  static size_t count;
 
   mark(std::string_view value, std::string_view subject, const std::tm &date);
 
